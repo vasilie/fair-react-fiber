@@ -2,7 +2,7 @@
   "name": "fair",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://vasilie.github.io/fair",
+  "homepage": "http://vasilie.github.io/fair-react-fiber",
   "dependencies": {
     "@react-three/drei": "^9.56.18",
     "@react-three/fiber": "^8.11.0",
