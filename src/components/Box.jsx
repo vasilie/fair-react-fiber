@@ -3,7 +3,7 @@ import {useFrame } from '@react-three/fiber'
 import PropTypes from "prop-types";
 function Box(props) {
 
-  const { size, color } = props;
+  const { size, color, metalness, roughness } = props;
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef()
   // Hold state for hovered and clicked events
@@ -15,21 +15,23 @@ function Box(props) {
   return (
     <mesh
       {...props}
-      castShadow
+      
       receiveShadow    
       ref={ref}
-      scale={clicked ? 1.5 : 1}
+      scale={props.clickable && clicked ? 1 : 1}
       onClick={(event) => click(!clicked)}
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
       <boxGeometry args={size} />
-      <meshStandardMaterial castShadow receiveShadow color={hovered? "#E0167E" : props.color} />
+      <meshStandardMaterial metalness={metalness} roughness={roughness} color={(props.clickable && hovered)? "#E0167E" : props.color} />
     </mesh>
   )
 }
 
 Box.defaultProps = {
   size: [1, 1, 1],
+  metalness: 0.7,
+  roughness: 0.4,
 }
 
 Box.propTypes = {
