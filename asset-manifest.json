@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/fair/static/css/main.59b41507.css",
+    "main.js": "/fair/static/js/main.0e8cb476.js",
+    "static/js/787.530bbd87.chunk.js": "/fair/static/js/787.530bbd87.chunk.js",
+    "index.html": "/fair/index.html",
+    "main.59b41507.css.map": "/fair/static/css/main.59b41507.css.map",
+    "main.0e8cb476.js.map": "/fair/static/js/main.0e8cb476.js.map",
+    "787.530bbd87.chunk.js.map": "/fair/static/js/787.530bbd87.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.59b41507.css",
+    "static/js/main.0e8cb476.js"
+  ]
+}
