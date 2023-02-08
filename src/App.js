@@ -8,7 +8,7 @@ import { generateCubes } from './lib/helpers/sceneGeneration';
 
 export default function App() {
 
-  const cubes = generateCubes(16,7);
+  const cubes = generateCubes(16,8);
 
   return (
     <div className="main">
@@ -17,7 +17,7 @@ export default function App() {
         <ambientLight intensity={0.3}  />
         <directionalLight position={[10, 10, 10]} angle={0.3} penumbra={0.3} castShadow intensity={0.3}/>
         <Stage intensity={0.1} environment="city" shadows="contact" adjustCamera={false} />
-        <Box position={[0, 0.5, 0]} material-color="#7AF5E2" />
+        <Box size={[2, 2, 2]} position={[0, 1, 0]} material-color="#7AF5E2" />
         <Plane castShadow receiveShadow args={[50, 50]} rotation={[-Math.PI / 2, 0, 0]} />
         <Environment background preset="sunset" blur={0.8} castShadow/>
         <OrbitControls autoRotate autoRotateSpeed={0.05} enableZoom={false} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI/ 6} maxPolarAngle={Math.PI / 2.01}  />
