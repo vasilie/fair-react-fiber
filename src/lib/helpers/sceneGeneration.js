@@ -1,3 +1,6 @@
+import { toRadians, getPointOnACircle } from "./math";
+
+
 export const generateCubes = (length, radius) =>
 { 
   let angles = [];
@@ -18,12 +21,16 @@ export const generateCubes = (length, radius) =>
   return cubes;
 }
 
-export const generateSectorPath = (length, radius) => {
-  const angles = generateAngles(length, 0.352, -6);
+export const generateCurvedLinePoints = (segments, radius, angle = 30,  y = 0.01) => {
+  const angles = generateAngles(segments, 1);
+ 
   const linePoints = [];
-  for (let i = 0; i < length; i++) {
-    const point = getPointOnACircle(angles[i], radius - .7, 0.01);
+  for (let i = 0; i < segments; i++) {
+    const point = getPointOnACircle(angles[i], radius, y);
     linePoints[i] = point;
+  }
+  if (angle === 360){
+    linePoints.push(getPointOnACircle(angles[0], radius, y));
   }
   return linePoints;
 }
@@ -37,4 +44,4 @@ export const generateAngles = (length, percentage = 1, offset = 0) => {
 }
 
 
-export const getPointOnACircle = (angle, radius, y = 0.5) => [radius * Math.sin(angle), y, radius * Math.cos(angle)];
+
