@@ -31,8 +31,8 @@ export default function App() {
           intensity={0.9}
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
-          shadow-camera-right={10}
-          shadow-camera-left={-10}
+          shadow-camera-right={20}
+          shadow-camera-left={-20}
         />
         <Stage intensity={1} environment="city" shadows="contact" adjustCamera={false} />
         <Box renderOrder={0} castShadow clickable size={[2, 2, 2]}  position={[0, 1, 0]} color="#E8E8EB" roughness={0.1} metalness={0.9}/>
