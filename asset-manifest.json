@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/fair-react-fiber/static/css/main.59b41507.css",
-    "main.js": "/fair-react-fiber/static/js/main.56dfde7d.js",
+    "main.js": "/fair-react-fiber/static/js/main.167b196a.js",
     "static/js/787.530bbd87.chunk.js": "/fair-react-fiber/static/js/787.530bbd87.chunk.js",
     "index.html": "/fair-react-fiber/index.html",
     "main.59b41507.css.map": "/fair-react-fiber/static/css/main.59b41507.css.map",
-    "main.56dfde7d.js.map": "/fair-react-fiber/static/js/main.56dfde7d.js.map",
+    "main.167b196a.js.map": "/fair-react-fiber/static/js/main.167b196a.js.map",
     "787.530bbd87.chunk.js.map": "/fair-react-fiber/static/js/787.530bbd87.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.59b41507.css",
-    "static/js/main.56dfde7d.js"
+    "static/js/main.167b196a.js"
   ]
 }
