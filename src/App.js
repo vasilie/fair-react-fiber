@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Plane, Stage, Environment, AccumulativeShadows, RandomizedLight, Line} from '@react-three/drei'
+import { OrbitControls,  Stage, Environment, AccumulativeShadows, RandomizedLight, Line} from '@react-three/drei'
 import './index.css';
 import Box from "./components/Box";
 import { generateCubes, generateCurvedLinePoints } from './lib/helpers/sceneGeneration';
@@ -10,14 +10,16 @@ import { CircleGeometry } from 'three';
 import Sector from './components/Sector';
 import { useControls } from 'leva'
 import Grid from "../src/components/Grid";
-
 export default function App() {
 
   // const { sectorAngle } =  useControls({sectorAngle: { value: 0, min: 0, max: 360}});
-  const { gridSizeX, gridSizeY } = useControls({
-    gridSizeX: {value: 3.25, min: 1, max: 5 },
-    gridSizeY: {value: 4.27, min: 2, max: 5.35 },
+  const { gridSizeX, gridSizeY, gridSnapAngle, radius } = useControls({
+    gridSizeX: {value: 3, min: 1, max: 10 },
+    gridSizeY: {value: 4, min: 2, max: 5.35 },
+    gridSnapAngle: {value: 45, min:30, max: 180, step: 15},
+    radius: {value: 8, min:5, max: 20},
   });
+
   return (
     <div className="main">
       <Canvas shadows camera={{ position: [0, 10, -17], fov: 80, }} >
@@ -42,7 +44,8 @@ export default function App() {
           position = {[0, 0, 0]}
           gridSizeX={gridSizeX}
           gridSizeY={gridSizeY}
-          radius={8}
+          radius={radius}
+          snapAngle={gridSnapAngle}
         />
         <Sector position={[0, 0.003, 0]} rotation={[-Math.PI / 2, 0, 0 * Math.PI / 180]}></Sector>
         <Environment background preset="sunset" blur={0.8} />
