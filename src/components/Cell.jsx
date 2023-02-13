@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { Line } from "@react-three/drei"
+import { Line, Billboard, Text } from "@react-three/drei"
 import { getPointOnACircle, toDegrees, toRadians } from "../lib/helpers/math";
 import Box from "./Box";
 import { useControls } from "leva";
+import Sector from "./Sector";
 
 const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
   const [hovered, hover] = useState(false)
@@ -19,12 +20,29 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
   const childRotation = [0, positionX * angle - angle / 2, 0];
 
   const { debugCellBoundingBox } = useControls({
-    debugCellBoundingBox: {value: true},
+    debugCellBoundingBox: {value: false},
   });
 
   return (
     <>
       {debugCellBoundingBox && <Line color="red" points={points}></Line>}
+      {/* <Billboard
+          follow={false}
+          lockX={false}
+          lockY={false}
+          position={childPosition}
+          lockZ={false} // Lock the rotation on the z axis (default=false)
+        >
+        <Text color="red" fontSize={1}>I'm a billboard</Text>
+      </Billboard> */}
+      <Sector
+        length={gridSizeX}
+        innerRadius={radius}
+        outerRadius={radius+gridSizeY}
+        clickable
+        position={[0, 0.03, 0]}
+        angle={toDegrees(positionX * angle)}
+        rotation={[-Math.PI / 2, 0, 0]} />
       <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} />
     </>
   )

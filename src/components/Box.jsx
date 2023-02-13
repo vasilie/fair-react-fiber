@@ -15,7 +15,6 @@ function Box(props) {
   return (
     <mesh
       {...props}
-      
       receiveShadow    
       ref={ref}
       scale={props.clickable && clicked ? 1 : 1}
