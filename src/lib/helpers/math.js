@@ -2,16 +2,15 @@ export const getLengthBetweenTwoPointsOnACircle = (angle, radius) => {
   return angle / 360 * 2 * Math.PI * radius;
 }
 
-export const getAngleFromLengthAndRadius = (length, radius, correction = true) => {
+export const getAngleFromLengthAndRadius = (length, radius, snapAngle = 45) => {
   const angle = length / (2 * Math.PI * radius)  * 360;
-  if (correction){
-    if (360 % angle === 0){
-      return angle;
-    } else {
-      const divisions = Math.floor(90 / angle);
-      const correction = 90 - divisions * angle;
-      return angle + correction / divisions;
-    }
+
+  if (360 % angle === 0){
+    return angle;
+  } else {
+    const divisions = Math.floor(snapAngle / angle);
+    const correction = snapAngle - divisions * angle;
+    return angle + correction / divisions;
   }
 }
 
