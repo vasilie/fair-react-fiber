@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { Line, Billboard, Text } from "@react-three/drei"
 import { getPointOnACircle, toDegrees, toRadians } from "../lib/helpers/math";
 import Box from "./Box";
 import { useControls } from "leva";
 import Sector from "./Sector";
+import { ExpoBooth } from "./models/ExpoBooth";
 
 const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
   const [hovered, hover] = useState(false)
@@ -16,8 +17,8 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
   const pointD = getPointOnACircle(positionX * angle, radius + gridSizeY, 0.1);
   const points = [pointA, pointB, pointC, pointD, pointA];
 
-  const childPosition = getPointOnACircle(positionX * angle - angle / 2, radius + 1);
-  const childRotation = [0, positionX * angle - angle / 2, 0];
+  const childPosition = getPointOnACircle(positionX * angle - angle / 2, radius + 1, 0.03);
+  const childRotation = [0, positionX * angle - angle / 2 - toRadians(90), 0];
 
   const { debugCellBoundingBox } = useControls({
     debugCellBoundingBox: {value: false},
@@ -30,7 +31,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
           follow={false}
           lockX={false}
           lockY={false}
-          position={childPosition}
+          position={childPosition}a
           lockZ={false} // Lock the rotation on the z axis (default=false)
         >
         <Text color="red" fontSize={1}>I'm a billboard</Text>
@@ -43,7 +44,8 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
         position={[0, 0.03, 0]}
         angle={toDegrees(positionX * angle)}
         rotation={[-Math.PI / 2, 0, 0]} />
-      <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} />
+      {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
+      <ExpoBooth scale={20} position={childPosition} rotation={childRotation}></ExpoBooth>
     </>
   )
 }

@@ -12,7 +12,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   const circlePoints = generateCurvedLinePoints(50, radius, 360 ,0.31);
   
   const { maxRows } = useControls({
-    maxRows: {value: 3, min: 1, max: 5, step: 1 },
+    maxRows: {value: 7, min: 1, max: 15, step: 1 },
   });
 
   const { debugGrid } = useControls({
@@ -60,7 +60,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
           gridSizeX={gridSizeX}
           gridSizeY={gridSizeY}
           angle={-getAngleFromLengthAndRadius(gridSizeX, radius + gridSizeY * i, snapAngle)  * Math.PI / 180}
-          key={`cell${j}`}
+          key={`cell${i}-${j}`}
         ></Cell>
         )
       }

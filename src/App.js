@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls,  Stage, Environment, AccumulativeShadows, RandomizedLight, Line} from '@react-three/drei'
 import './index.css';
 import Box from "./components/Box";
+import { Dome } from "./components/models/Dome";
 import { generateCubes, generateCurvedLinePoints } from './lib/helpers/sceneGeneration';
 // const radians = angleInDegrees * Math.PI / 180
 
@@ -17,7 +19,7 @@ export default function App() {
     gridSizeX: {value: 3, min: 1, max: 10 },
     gridSizeY: {value: 4, min: 2, max: 5.35 },
     gridSnapAngle: {value: 45, min:30, max: 180, step: 15},
-    radius: {value: 8, min:5, max: 20},
+    radius: {value: 12, min:5, max: 20},
   });
 
   return (
@@ -37,16 +39,19 @@ export default function App() {
           shadow-camera-left={-20}
         />
         <Stage intensity={1} environment="city" shadows="contact" adjustCamera={false} />
-        <Box renderOrder={0} castShadow clickable size={[2, 2, 2]}  position={[0, 1, 0]} color="#E8E8EB" roughness={0.1} metalness={0.9}/>
+        {/* <Box renderOrder={0} castShadow clickable size={[2, 2, 2]}  position={[0, 1, 0]} color="#E8E8EB" roughness={0.1} metalness={0.9}/> */}
         <Box size={[150, 0, 150]} roughness={0.7} rotation={[ Math.PI, 0 , 0]} position={[0, 0, 0]} color="white" />
         {/* {cubes.map(cube => <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" {...cube} />)} */}
-        <Grid 
-          position = {[0, 0, 0]}
-          gridSizeX={gridSizeX}
-          gridSizeY={gridSizeY}
-          radius={radius}
-          snapAngle={gridSnapAngle}
-        />
+        <Suspense fallback={null}> 
+          <Grid 
+            position = {[0, 0, 0]}
+            gridSizeX={gridSizeX}
+            gridSizeY={gridSizeY}
+            radius={radius}
+            snapAngle={gridSnapAngle}
+          />
+          <Dome position={[0,0,0]} scale={8}></Dome>
+        </Suspense>
         <Sector position={[0, 0.003, 0]} rotation={[-Math.PI / 2, 0, 0 * Math.PI / 180]}></Sector>
         <Environment background preset="sunset" blur={0.8} />
         <OrbitControls autoRotate autoRotateSpeed={0.05} enableZoom={false} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
