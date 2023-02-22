@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { calcPosFromAngles, Circle, Line } from "@react-three/drei";
 import { useControls } from "leva";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
 import { generateCurvedLinePoints  } from "../lib/helpers/sceneGeneration";
 import Cell from "./Cell";
+import { dummyData } from "../lib/helpers/dummyData";
 
 const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
 
@@ -10,7 +12,8 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   const radiusLength = 2 * Math.PI * radius;
   const maxCells = Math.floor(radiusLength / gridSizeX);
   const circlePoints = generateCurvedLinePoints(50, radius, 360 ,0.31);
-  
+  const [gridPositions, setGridPositions] = useState([]);
+
   const { maxRows } = useControls({
     maxRows: {value: 7, min: 1, max: 15, step: 1 },
   });
@@ -18,6 +21,39 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   const { debugGrid } = useControls({
     debugGrid: { value: false },
   });
+
+  const { sectorMinAngle } = useControls({
+    sectorMinAngle: { value: 45 },
+  });
+
+  const maxColumns = Math.floor(360 / sectorMinAngle);
+  const columns = [];
+
+  for (let i = 0; i < maxColumns; i++) {
+    columns.push([]);
+  }
+
+
+  const findNextAvailableSectorPosition = () => {
+    for (let i = 0; i < gridPositions.length; i++) {
+      for (let j = 0; j < gridPositions[i].length; j++) {
+        if ()
+      }
+    }
+  }
+
+  const generateSectors = (gridSizeX, radius) => {
+    const currentAngle = 0;
+    
+    const radiusLength =  2 / 360 / sectorMinAngle * Math.PI * radius;
+    
+    dummyData.forEach((sector, x) => {
+      const { items } = sector;
+
+
+    })
+
+  }
 
   const generateRow = (gridSizeX, radius) => {
     const radiusLength = 2 * Math.PI * radius;

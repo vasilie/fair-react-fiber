@@ -36,14 +36,14 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
         >
         <Text color="red" fontSize={1}>I'm a billboard</Text>
       </Billboard> */}
-      <Sector
+      {/* <Sector
         length={gridSizeX}
         innerRadius={radius}
         outerRadius={radius+gridSizeY}
         clickable
         position={[0, 0.03, 0]}
         angle={toDegrees(positionX * angle)}
-        rotation={[-Math.PI / 2, 0, 0]} />
+        rotation={[-Math.PI / 2, 0, 0]} /> */}
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
       <ExpoBooth scale={20} position={childPosition} rotation={childRotation}></ExpoBooth>
     </>

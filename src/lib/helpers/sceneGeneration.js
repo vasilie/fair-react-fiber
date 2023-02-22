@@ -43,5 +43,16 @@ export const generateAngles = (length, percentage = 1, offset = 0) => {
   return angles;
 }
 
-
+export const generatePossibleGridPositions = (maxRows, radius, gridSizeX, gridSizeY) => {
+  let gridPositions = [];
+  for (let i = 0; i < maxRows; i++) {
+    gridPositions[i] = [];
+    const radiusLength = 2 * Math.PI * (radius + gridSizeY * i);
+    let maxCells = Math.floor(radiusLength / gridSizeX); 
+    for (let j = 0; j < maxCells; j++) {
+      gridPositions[i].push([]); 
+    }
+  }
+  return gridPositions;
+}
 
