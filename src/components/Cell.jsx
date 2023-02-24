@@ -7,7 +7,7 @@ import { useControls } from "leva";
 import Sector from "./Sector";
 import { ExpoBooth } from "./models/ExpoBooth";
 
-const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
+const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle, sectorId}) => {
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
 
@@ -27,23 +27,24 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, angle}) => {
   return (
     <>
       {debugCellBoundingBox && <Line color="red" points={points}></Line>}
-      {/* <Billboard
-          follow={false}
+      <Billboard
+          follow={true}
           lockX={false}
           lockY={false}
-          position={childPosition}a
+          position={[childPosition[0], 3, childPosition[2]]}
           lockZ={false} // Lock the rotation on the z axis (default=false)
         >
-        <Text color="red" fontSize={1}>I'm a billboard</Text>
-      </Billboard> */}
-      {/* <Sector
+        <Text color="blue" fontSize={1}>{sectorId}</Text>
+      </Billboard>
+      <Sector
         length={gridSizeX}
         innerRadius={radius}
         outerRadius={radius+gridSizeY}
-        clickable
         position={[0, 0.03, 0]}
-        angle={toDegrees(positionX * angle)}
-        rotation={[-Math.PI / 2, 0, 0]} /> */}
+        sectorId={sectorId}
+        angle={toDegrees(positionX * angle + angle)}
+        rotation={[-Math.PI / 2, 0, 0]} />
+ 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
       <ExpoBooth scale={20} position={childPosition} rotation={childRotation}></ExpoBooth>
     </>
