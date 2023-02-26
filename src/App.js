@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <div className="main">
-      <Canvas shadows camera={{ position: [0, 10, -17], fov: 80, }} >
+      <Canvas shadows camera={{ position: [0, 13, -25], fov: 80, }} >
         {/* <Grid renderOrder={-1} sectionColor={[0.51, 0.51, 0.41, 0.1]} opacity={0.1} position={[0, 0.01, 0]} infiniteGrid/> */}
         <ambientLight intensity={0.8}  />
         <directionalLight 

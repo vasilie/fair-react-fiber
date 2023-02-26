@@ -3,7 +3,7 @@ import {useFrame } from '@react-three/fiber'
 import PropTypes from "prop-types";
 import { getAngleFromLengthAndRadius, toRadians } from '../lib/helpers/math';
 
-function Sector({innerRadius, outerRadius,angle, length, sectorId,  ...props}) {
+function Sector({innerRadius, outerRadius,angle, length, sectorId, sectorColor,  ...props}) {
 
   const ref = useRef();
   // Hold state for hovered and clicked events
@@ -27,9 +27,9 @@ function Sector({innerRadius, outerRadius,angle, length, sectorId,  ...props}) {
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
       <ringGeometry
-        args={[innerRadius, outerRadius, 50 ,1, toRadians(angle) -toRadians(135), toRadians(getAngleFromLengthAndRadius(length, innerRadius))]}
+        args={[innerRadius, outerRadius, 50 ,1, toRadians(angle) -toRadians(90), toRadians(getAngleFromLengthAndRadius(length, innerRadius))]}
       />
-      <meshStandardMaterial roughness={0.7} metalness={1} color={sectorId ? "green" : "red"}></meshStandardMaterial>
+      <meshStandardMaterial roughness={0.7} metalness={1} color={sectorId ? sectorColor : "white"}></meshStandardMaterial>
     </mesh>
   )
 }

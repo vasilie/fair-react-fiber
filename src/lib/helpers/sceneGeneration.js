@@ -21,6 +21,14 @@ export const generateCubes = (length, radius) =>
   return cubes;
 }
 
+export const getRandomColor = () => {
+  let r = Math.floor(Math.random() * 255);
+  let g = Math.floor(Math.random() * 255);
+  let b = Math.floor(Math.random() * 255);
+
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
 export const generateCurvedLinePoints = (segments, radius, angle = 30,  y = 0.01) => {
   const angles = generateAngles(segments, 1);
  

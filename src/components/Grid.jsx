@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { calcPosFromAngles, Circle, Line } from "@react-three/drei";
 import { useControls } from "leva";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
-import { generateCurvedLinePoints  } from "../lib/helpers/sceneGeneration";
+import { generateCurvedLinePoints, getRandomColor  } from "../lib/helpers/sceneGeneration";
 import Cell from "./Cell";
 import { dummyData } from "../lib/helpers/dummyData";
 
@@ -17,7 +17,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   const [gridPositions, setGridPositions] = useState([]);
 
   const { maxRows } = useControls({
-    maxRows: {value: 7, min: 1, max: 15, step: 1 },
+    maxRows: {value: 5, min: 1, max: 15, step: 1 },
   });
 
   const { debugGrid } = useControls({
@@ -30,7 +30,14 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
 
   useEffect(()=> {
     let positions = generatePossibleGridPositions();
-    setGridPositions(assignPositionToItems(dummyData[0].items, positions, dummyData[0].id ));
+
+    let newPositions = positions;
+    for (let i = 0; i < dummyData.length; i++) {
+      let sectorColor = getRandomColor();
+      newPositions = assignPositionToItems(dummyData[i].items, newPositions, dummyData[i].id, dummyData[i].label, sectorColor);
+    }
+
+    setGridPositions(positions);
   }, [])
 
 
@@ -39,8 +46,15 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
     let gridPositions = [];
     for (let i = 0; i < maxRows; i++) {
       gridPositions[i] = [];
-      const radiusLength = 2 * Math.PI * (radius + gridSizeY * i);
-      let maxCells = Math.floor(radiusLength / gridSizeX); 
+      const radiusLength = (1.5 * Math.PI) * (radius + gridSizeY * i);
+      const radiusCellAngle = getAngleFromLengthAndRadius(gridSizeX, radius + gridSizeY * i);
+      const radiusFullAngle = 270;
+
+      console.log("RADIUS LENGHT", radiusLength);
+      console.log("RADIUS", radius);
+      let maxCells = Math.floor(radiusFullAngle / radiusCellAngle); 
+      console.log("maxCells", maxCells);
+      console.log("gridSizeX", gridSizeX);
       for (let j = 0; j < maxCells; j++) {
         gridPositions[i].push(null);
       }
@@ -67,6 +81,8 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
 
   const getCellsPerQuadrant = (position) => {
     const radiusLength = 2 / (360 / quadrantAngle)  * Math.PI * (radius + gridSizeY * position[1]);
+    console.log("Cells per quadrant", Math.floor(radiusLength / gridSizeX));
+    console.log("position", position[1]);
     return Math.floor(radiusLength / gridSizeX); 
   }
 
@@ -74,24 +90,34 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
     return getQuadrantPosition(position) === quadrant;
   }
 
-  const assignPositionToItems = (items, gridPositions, sectorId) => {
+  const quadrantStartingXPositionBasedOnRow = (quadrant, row) => {
+    return quadrant * getCellsPerQuadrant([0, row]);
+  }
+
+  const assignPositionToItems = (items, gridPositions, sectorId, label, sectorColor) => {
+    console.log("color", sectorColor);
     const startingPosition = getNextFreeGridPosition(gridPositions);
     console.log("startingPosition",startingPosition);
+    console.log("sectorId", sectorId);
+    
+    let lastAssignedPosition = [];
     let currentRow = startingPosition[1];
     let currentQuadrant = getQuadrantPosition(startingPosition);
      console.log("currentQuadrant",currentQuadrant);
     for (let i = 0; i < items.length; i++) {
-      for (let row = currentRow; i < maxRows; row++){
+      
+      for (let row = currentRow; row < maxRows; row++){
         let itemAssigned = false;
         for (let x = 0; x < gridPositions[row].length; x++) {
-          if (gridPositions[row][x + startingPosition[0]] === null) {
-            if (checkIfInQuadrant(currentQuadrant, [x + startingPosition[0], startingPosition[1] + row], radius, gridSizeX, gridSizeY, quadrantAngle )){
-              console.log(`[${[x + startingPosition[0], row]}] in quadrant`);
-              console.log("placing",[x + startingPosition[0], row] )
-              gridPositions[row][x + startingPosition[0]] = {...items[i], sectorId};
+          if (gridPositions[startingPosition[1] + row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] === null) {
+            if (checkIfInQuadrant(currentQuadrant, [x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), startingPosition[1] + row])){
+              console.log(`[${[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), startingPosition[1] + row]}] in quadrant`);
+              console.log("placing",[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row] )
+              lastAssignedPosition = [x, startingPosition[1] + row];
+              gridPositions[startingPosition[1] + row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] = {...items[i], sectorId, label, sectorColor};
               itemAssigned = true;
             } else {
-              console.log(`[${[x + startingPosition[0], row]}] not in quadrant`);
+              console.log(`[${[x + startingPosition[0], row]}] not in quadrant ${currentQuadrant}`);
               console.log("Tried", [x + startingPosition[0], row] );
             }
             break;
@@ -99,6 +125,14 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
         }
         if (itemAssigned) {
           break;
+        }
+      }
+      // Check if there is more space until the end of row in qurrent quadrant
+      if (i === items.length - 1){
+        let remainingEmptyCells =  getCellsPerQuadrant(lastAssignedPosition) - lastAssignedPosition[0];
+        console.log("Remaining cells", remainingEmptyCells);
+        for (let x = 0; x < remainingEmptyCells; x++) {
+          gridPositions[lastAssignedPosition[1]][lastAssignedPosition[0] + x + quadrantStartingXPositionBasedOnRow(currentQuadrant, lastAssignedPosition[1])] = {sectorId, falseBuilding: true, sectorColor};
         }
       }
     }
@@ -139,7 +173,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
       // let rowPositions = generateRow(gridSizeX, radius + gridSizeY * i);
       let rowPositions = gridPositions;
       let rowsArray = [];
-      for (let j = 0; j < rowPositions[i].length - 4; j++) {
+      for (let j = 0; j < rowPositions[i]?.length; j++) {
         rowsArray[j] = (
           <Cell
           {...(rowPositions[i][j])}
