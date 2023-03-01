@@ -82,7 +82,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   const getCellsPerQuadrant = (position) => {
     const radiusLength = 2 / (360 / quadrantAngle)  * Math.PI * (radius + gridSizeY * position[1]);
     console.log("Cells per quadrant", Math.floor(radiusLength / gridSizeX));
-    console.log("position", position[1]);
+    console.log("positionY", position[1]);
     return Math.floor(radiusLength / gridSizeX); 
   }
 
@@ -109,12 +109,12 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
       for (let row = currentRow; row < maxRows; row++){
         let itemAssigned = false;
         for (let x = 0; x < gridPositions[row].length; x++) {
-          if (gridPositions[startingPosition[1] + row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] === null) {
-            if (checkIfInQuadrant(currentQuadrant, [x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), startingPosition[1] + row])){
-              console.log(`[${[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), startingPosition[1] + row]}] in quadrant`);
+          if (gridPositions[row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] === null) {
+            if (checkIfInQuadrant(currentQuadrant, [x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row])){
+              console.log(`[${[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row]}] in quadrant`);
               console.log("placing",[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row] )
-              lastAssignedPosition = [x, startingPosition[1] + row];
-              gridPositions[startingPosition[1] + row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] = {...items[i], sectorId, label, sectorColor};
+              lastAssignedPosition = [x, row];
+              gridPositions[row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] = {...items[i], sectorId, label, sectorColor};
               itemAssigned = true;
             } else {
               console.log(`[${[x + startingPosition[0], row]}] not in quadrant ${currentQuadrant}`);
