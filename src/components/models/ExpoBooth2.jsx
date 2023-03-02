@@ -9,7 +9,7 @@ import { Instance } from "@react-three/drei";
 export function ExpoBooth2(props) {
   return (
     <group {...props} dispose={null}>
-      <Instance />
+      <Instance castShadow receiveShadow/>
     </group>
   );
 }

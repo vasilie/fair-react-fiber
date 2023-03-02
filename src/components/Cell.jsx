@@ -36,7 +36,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
   return (
     <>
       {debugCellBoundingBox && <Line color="red" points={points}></Line>}
-      {/* <Billboard
+      <Billboard
           follow={true}
           lockX={false}
           lockY={false}
@@ -44,7 +44,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
           lockZ={false} // Lock the rotation on the z axis (default=false)
         >
         <Text outlineWidth={0.1} fontSize={0.8} outlineColor="white" color="#333" >{sectorId}</Text>
-      </Billboard> */}
+      </Billboard>
       <Sector
         length={gridSizeX}
         innerRadius={radius}

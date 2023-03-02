@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls,  Stage, Environment, AccumulativeShadows, RandomizedLight, Line} from '@react-three/drei'
+import { OrbitControls,  Stage, Environment, AccumulativeShadows, RandomizedLight, Line, SoftShadows} from '@react-three/drei'
 import './index.css';
 import Box from "./components/Box";
 import { Dome } from "./components/models/Dome";
@@ -33,11 +33,10 @@ export default function App() {
           penumbra={1}
           castShadow
           intensity={0.9}
-          shadow-camera-top={10}
-          shadow-camera-bottom={-10}
-          shadow-camera-right={20}
-          shadow-camera-left={-20}
-        />
+        >
+          
+         <orthographicCamera attach="shadow-camera" args={[-30, 30, 30, -10, 0.1, 300]} />
+        </directionalLight>
         <Stage intensity={1} environment="city" shadows="contact" adjustCamera={false} />
         {/* <Box renderOrder={0} castShadow clickable size={[2, 2, 2]}  position={[0, 1, 0]} color="#E8E8EB" roughness={0.1} metalness={0.9}/> */}
         <Box size={[150, 0, 150]} roughness={0.7} rotation={[ Math.PI, 0 , 0]} position={[0, 0, 0]} color="white" />

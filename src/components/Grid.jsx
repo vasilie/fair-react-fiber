@@ -18,7 +18,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   const [gridPositions, setGridPositions] = useState([]);
 
   const { maxRows } = useControls({
-    maxRows: {value: 20, min: 1, max: 15, step: 1 },
+    maxRows: {value: 5, min: 1, max: 15, step: 1 },
   });
 
   const { debugGrid } = useControls({
@@ -196,7 +196,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
       }
       map[i] = rowsArray;
     }
-    return <Instances range={1000} material={materials["frame.001"]} geometry={nodes.ExpoBooth.geometry}>{map}</Instances>;
+    return <Instances castShadow receiveShadow range={1000} material={materials["frame.001"]} geometry={nodes.ExpoBooth.geometry}>{map}</Instances>;
   }
 
   return (
