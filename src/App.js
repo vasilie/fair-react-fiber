@@ -17,7 +17,7 @@ export default function App() {
   // const { sectorAngle } =  useControls({sectorAngle: { value: 0, min: 0, max: 360}});
   const { gridSizeX, gridSizeY, gridSnapAngle, radius } = useControls({
     gridSizeX: {value: 3, min: 1, max: 10 },
-    gridSizeY: {value: 4, min: 2, max: 5.35 },
+    gridSizeY: {value: 5, min: 2, max: 5.35 },
     gridSnapAngle: {value: 45, min:30, max: 180, step: 15},
     radius: {value: 12, min:5, max: 20},
   });

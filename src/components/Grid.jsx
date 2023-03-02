@@ -38,7 +38,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
     }
 
     setGridPositions(positions);
-  }, [])
+  }, [gridSizeX])
 
 
 
@@ -93,6 +93,8 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   const quadrantStartingXPositionBasedOnRow = (quadrant, row) => {
     return quadrant * getCellsPerQuadrant([0, row]);
   }
+
+
 
   const assignPositionToItems = (items, gridPositions, sectorId, label, sectorColor) => {
     console.log("color", sectorColor);
@@ -173,6 +175,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
       // let rowPositions = generateRow(gridSizeX, radius + gridSizeY * i);
       let rowPositions = gridPositions;
       let rowsArray = [];
+      let cellWidthInDegreesBasedOnRow = -getAngleFromLengthAndRadius(gridSizeX, radius + gridSizeY * i, snapAngle)  * Math.PI / 180;
       for (let j = 0; j < rowPositions[i]?.length; j++) {
         rowsArray[j] = (
           <Cell
@@ -182,7 +185,8 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
           radius={radius + gridSizeY * i}
           gridSizeX={gridSizeX}
           gridSizeY={gridSizeY}
-          angle={-getAngleFromLengthAndRadius(gridSizeX, radius + gridSizeY * i, snapAngle)  * Math.PI / 180}
+          quadrant={getQuadrantPosition([j, i])}
+          cellWidthInDegreesBasedOnRow={cellWidthInDegreesBasedOnRow}
           key={`cell${i}-${j}`}
         ></Cell>
         )
