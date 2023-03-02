@@ -10,7 +10,7 @@ export function Dome(props) {
   const { nodes, materials } = useGLTF(modelPath);
   return (
     <group {...props} dispose={null}>
-      <group rotation={[Math.PI / 2, 0, 0]}>
+      <group rotation={[Math.PI / 2, 0,  - Math.PI / 4]}>
         <mesh
           castShadow
           receiveShadow

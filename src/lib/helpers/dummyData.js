@@ -731,8 +731,8 @@ export const dummyData = [
       },
     ]
   },  {
-    id: "zdravstvo",
-    label: "zdravstvo",
+    id: "trubaci",
+    label: "Trubaci",
     items: [
       {
         id: "trgovina -do-kraja",

@@ -45,7 +45,6 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
         >
         <Text outlineWidth={0.1} fontSize={0.8} outlineColor="white" color="#333" >{sectorId}</Text>
       </Billboard>
-      <Line color="blue" points={[[0,0.01,0], getPointOnACircle(toRadians(- 22.5), 3 * radius, 0.2)]} />
       <Sector
         length={gridSizeX}
         innerRadius={radius}
