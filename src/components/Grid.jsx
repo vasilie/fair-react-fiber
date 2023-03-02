@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 
 import { useState, useEffect } from "react";
-import { calcPosFromAngles, Circle, Line } from "@react-three/drei";
+import { calcPosFromAngles, Circle, Line, useGLTF, Instances } from "@react-three/drei";
 import { useControls } from "leva";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
 import { generateCurvedLinePoints, getRandomColor  } from "../lib/helpers/sceneGeneration";
 import Cell from "./Cell";
 import { dummyData } from "../lib/helpers/dummyData";
+import modelPath from "./models/expoBooth.glb";
 
 const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
 
@@ -17,7 +18,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   const [gridPositions, setGridPositions] = useState([]);
 
   const { maxRows } = useControls({
-    maxRows: {value: 5, min: 1, max: 15, step: 1 },
+    maxRows: {value: 20, min: 1, max: 15, step: 1 },
   });
 
   const { debugGrid } = useControls({
@@ -171,6 +172,8 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
 
   const Rows = () => {
     let map = [];
+    const { nodes, materials } = useGLTF(modelPath);
+
     for (let i = 0; i < maxRows; i++) {
       // let rowPositions = generateRow(gridSizeX, radius + gridSizeY * i);
       let rowPositions = gridPositions;
@@ -193,7 +196,7 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
       }
       map[i] = rowsArray;
     }
-    return map;
+    return <Instances range={1000} material={materials["frame.001"]} geometry={nodes.ExpoBooth.geometry}>{map}</Instances>;
   }
 
   return (
@@ -227,3 +230,5 @@ Grid.propTypes = {
 }
 
 export default Grid;
+
+useGLTF.preload("/ExpoBooth.glb");

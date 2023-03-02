@@ -6,6 +6,7 @@ import Box from "./Box";
 import { useControls } from "leva";
 import Sector from "./Sector";
 import { ExpoBooth } from "./models/ExpoBooth";
+import { ExpoBooth2 } from "./models/ExpoBooth2";
 import { getQuadrantPosition } from "../lib/helpers/sceneGeneration";
 import { Vector3 } from "three";
 
@@ -35,7 +36,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
   return (
     <>
       {debugCellBoundingBox && <Line color="red" points={points}></Line>}
-      <Billboard
+      {/* <Billboard
           follow={true}
           lockX={false}
           lockY={false}
@@ -43,7 +44,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
           lockZ={false} // Lock the rotation on the z axis (default=false)
         >
         <Text outlineWidth={0.1} fontSize={0.8} outlineColor="white" color="#333" >{sectorId}</Text>
-      </Billboard>
+      </Billboard> */}
       <Sector
         length={gridSizeX}
         innerRadius={radius}
@@ -55,7 +56,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
         rotation={[-Math.PI / 2, 0, 0]} />
 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
-      <ExpoBooth scale={20} position={childPositionPulledBack} rotation={childRotation}></ExpoBooth>
+      <ExpoBooth2 scale={20} position={childPositionPulledBack} rotation={childRotation}></ExpoBooth2>
     </>
   )
 }
