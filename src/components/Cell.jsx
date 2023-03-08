@@ -8,6 +8,8 @@ import Sector from "./Sector";
 import { ExpoBooth } from "./models/ExpoBooth";
 import { ExpoBooth2 } from "./models/ExpoBooth2";
 import { getQuadrantPosition } from "../lib/helpers/sceneGeneration";
+import Pavement from "./Pavement";
+
 import { Vector3 } from "three";
 
 const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedOnRow, sectorId, sectorColor, quadrant}) => {
@@ -45,18 +47,22 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
         >
         <Text outlineWidth={0.1} fontSize={0.8} outlineColor="white" color="#333" >{sectorId}</Text>
       </Billboard>
+      <group position={[0 + quadrantDistanceToMove[0] , 0.03, 0 + quadrantDistanceToMove[2]]}>
       <Sector
         length={gridSizeX}
         innerRadius={radius}
         outerRadius={radius+gridSizeY -1}
-        position={[0 + quadrantDistanceToMove[0] , 0.03, 0 + quadrantDistanceToMove[2]]}
+        position={[0, 0, 0]}
         sectorId={sectorId}
         angle={toDegrees(positionX * cellWidthInDegreesBasedOnRow + cellWidthInDegreesBasedOnRow)}
         sectorColor={sectorColor}
         rotation={[-Math.PI / 2, 0, 0]} />
+      </group>
+    
 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
       <ExpoBooth2 scale={20} position={childPositionPulledBack} rotation={childRotation}></ExpoBooth2>
+      <Pavement  position={[0, 0.1, 0]} rotation={[toRadians(90), toRadians(0),toRadians(0)]} points={points}/>
     </>
   )
 }

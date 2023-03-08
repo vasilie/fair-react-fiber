@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 import { useState, useEffect } from "react";
-import { calcPosFromAngles, Circle, Line, useGLTF, Instances } from "@react-three/drei";
+import { Line, useGLTF, Instances } from "@react-three/drei";
 import { useControls } from "leva";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
 import { generateCurvedLinePoints, getRandomColor  } from "../lib/helpers/sceneGeneration";
@@ -9,7 +9,7 @@ import Cell from "./Cell";
 import { dummyData } from "../lib/helpers/dummyData";
 import modelPath from "./models/expoBooth.glb";
 
-const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
+const Grid = ({ gridSizeX, gridSizeY, radius, snapAngle }) => {
 
   const angle = -Math.abs(getAngleFromLengthAndRadius(gridSizeX, radius, snapAngle));
   const radiusLength = 2 * Math.PI * radius;
@@ -41,21 +41,13 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
     setGridPositions(positions);
   }, [gridSizeX])
 
-
-
   const generatePossibleGridPositions = () => {
     let gridPositions = [];
     for (let i = 0; i < maxRows; i++) {
       gridPositions[i] = [];
-      const radiusLength = (1.5 * Math.PI) * (radius + gridSizeY * i);
       const radiusCellAngle = getAngleFromLengthAndRadius(gridSizeX, radius + gridSizeY * i);
       const radiusFullAngle = 270;
-
-      console.log("RADIUS LENGHT", radiusLength);
-      console.log("RADIUS", radius);
       let maxCells = Math.floor(radiusFullAngle / radiusCellAngle); 
-      console.log("maxCells", maxCells);
-      console.log("gridSizeX", gridSizeX);
       for (let j = 0; j < maxCells; j++) {
         gridPositions[i].push(null);
       }
@@ -64,7 +56,6 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
   }
 
   const getNextFreeGridPosition = (gridPositions) => {
-    console.log("griddziiton", gridPositions);
     for (let i = 0; i < gridPositions.length; i++) {
       for (let j = 0; j < gridPositions[i].length; j++) {
         if (gridPositions[i][j] === null){
@@ -76,14 +67,11 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
 
   const getQuadrantPosition = (position) => {
     const cellsPerQuadrant = getCellsPerQuadrant(position);
-    console.log("cellsperq", cellsPerQuadrant);
     return Math.floor(position[0] / cellsPerQuadrant) ;
   }
 
   const getCellsPerQuadrant = (position) => {
     const radiusLength = 2 / (360 / quadrantAngle)  * Math.PI * (radius + gridSizeY * position[1]);
-    console.log("Cells per quadrant", Math.floor(radiusLength / gridSizeX));
-    console.log("positionY", position[1]);
     return Math.floor(radiusLength / gridSizeX); 
   }
 
@@ -95,22 +83,16 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
     return quadrant * getCellsPerQuadrant([0, row]);
   }
 
-
-
   const assignPositionToItems = (items, gridPositions, sectorId, label, sectorColor) => {
-    console.log("color", sectorColor);
     const startingPosition = getNextFreeGridPosition(gridPositions);
-    console.log("startingPosition",startingPosition);
-    console.log("sectorId", sectorId);
-    
     let lastAssignedPosition = [];
     let currentRow = startingPosition[1];
     let currentQuadrant = getQuadrantPosition(startingPosition);
-     console.log("currentQuadrant",currentQuadrant);
+    
     for (let i = 0; i < items.length; i++) {
-      
       for (let row = currentRow; row < maxRows; row++){
         let itemAssigned = false;
+
         for (let x = 0; x < gridPositions[row].length; x++) {
           if (gridPositions[row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] === null) {
             if (checkIfInQuadrant(currentQuadrant, [x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row])){
@@ -142,18 +124,6 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
     return gridPositions;
   };
 
-  const generateRow = (gridSizeX, radius) => {
-    const radiusLength = 2 * Math.PI * radius;
-    const maxCells = Math.floor(radiusLength / gridSizeX); 
-    const angle = getAngleFromLengthAndRadius(gridSizeX, radius, snapAngle);
-    const row = [];
-    for (let i = 0; i < maxCells; i++) {
-      const position = getPointOnACircle(i * angle, radius);
-      row.push(position);
-    }
-    return row;
-  }
-
   const DebugAngleLines = () => {
     let lines = [];
     for (let i = 0; i < maxCells; i++) {
@@ -175,7 +145,6 @@ const Grid = ({gridSizeX, gridSizeY, radius, snapAngle}) => {
     const { nodes, materials } = useGLTF(modelPath);
 
     for (let i = 0; i < maxRows; i++) {
-      // let rowPositions = generateRow(gridSizeX, radius + gridSizeY * i);
       let rowPositions = gridPositions;
       let rowsArray = [];
       let cellWidthInDegreesBasedOnRow = -getAngleFromLengthAndRadius(gridSizeX, radius + gridSizeY * i, snapAngle)  * Math.PI / 180;

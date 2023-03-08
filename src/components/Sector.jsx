@@ -15,6 +15,16 @@ function Sector({innerRadius, outerRadius,angle, length, sectorId, sectorColor, 
     "#333",
     "white",
   ];
+  
+  const extrudeSettings = {
+	steps: 2,
+	depth: 16,
+	bevelEnabled: true,
+	bevelThickness: 1,
+	bevelSize: 1,
+	bevelOffset: 0,
+	bevelSegments: 1
+};
   // Subscribe this component to the render-loop, rotate the mesh every frame
   // useFrame((state, delta) => (ref.current.rotation.x += delta))
   // Return the view, these are regular Threejs elements expressed in JSX
