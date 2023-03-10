@@ -12,6 +12,7 @@ import { CircleGeometry } from 'three';
 import Sector from './components/Sector';
 import { useControls } from 'leva'
 import Grid from "../src/components/Grid";
+import GridProvider from "./Contexts/GridContext";
 export default function App() {
 
   // const { sectorAngle } =  useControls({sectorAngle: { value: 0, min: 0, max: 360}});
@@ -42,13 +43,15 @@ export default function App() {
         <Box size={[150, 0, 150]} roughness={0.7} rotation={[ Math.PI, 0 , 0]} position={[0, 0, 0]} color="white" />
         {/* {cubes.map(cube => <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" {...cube} />)} */}
         <Suspense fallback={null}> 
-          <Grid 
-            position = {[0, 0, 0]}
-            gridSizeX={gridSizeX}
-            gridSizeY={gridSizeY}
-            radius={radius}
-            snapAngle={gridSnapAngle}
-          />
+          <GridProvider>
+            <Grid 
+              position = {[0, 0, 0]}
+              gridSizeX={gridSizeX}
+              gridSizeY={gridSizeY}
+              radius={radius}
+              snapAngle={gridSnapAngle}
+            />
+          </GridProvider>
           <Dome position={[0,0,0]} scale={8}></Dome>
         </Suspense>
         <Sector position={[0, 0.003, 0]} rotation={[-Math.PI / 2, 0, 0 * Math.PI / 180]}></Sector>

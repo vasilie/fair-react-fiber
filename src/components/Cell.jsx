@@ -23,7 +23,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
   const pointD = getPointOnACircle(positionX * cellWidthInDegreesBasedOnRow, radius + gridSizeY, 0.1);
   const points = [pointA, pointB, pointC, pointD, pointA];
 
-  const childPosition = getPointOnACircle(cellWidthInDegreesBasedOnRow + positionX * cellWidthInDegreesBasedOnRow - cellWidthInDegreesBasedOnRow / 2, radius + 2, 0.03);
+  const childPosition = getPointOnACircle(cellWidthInDegreesBasedOnRow + positionX * cellWidthInDegreesBasedOnRow - cellWidthInDegreesBasedOnRow / 2, radius + 2, 0.15);
   
   const childRotation = [0, cellWidthInDegreesBasedOnRow + positionX * cellWidthInDegreesBasedOnRow - cellWidthInDegreesBasedOnRow / 2 - toRadians(90), 0];
 
@@ -48,7 +48,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
         <Text outlineWidth={0.1} fontSize={0.8} outlineColor="white" color="#333" >{sectorId}</Text>
       </Billboard>
       <group position={[0 + quadrantDistanceToMove[0] , 0.03, 0 + quadrantDistanceToMove[2]]}>
-      <Sector
+      {/* <Sector
         length={gridSizeX}
         innerRadius={radius}
         outerRadius={radius+gridSizeY -1}
@@ -56,13 +56,13 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
         sectorId={sectorId}
         angle={toDegrees(positionX * cellWidthInDegreesBasedOnRow + cellWidthInDegreesBasedOnRow)}
         sectorColor={sectorColor}
-        rotation={[-Math.PI / 2, 0, 0]} />
+        rotation={[-Math.PI / 2, 0, 0]} /> */}
       </group>
     
 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
       <ExpoBooth2 scale={20} position={childPositionPulledBack} rotation={childRotation}></ExpoBooth2>
-      <Pavement  position={[0, 0.1, 0]} rotation={[toRadians(90), toRadians(0),toRadians(0)]} points={points}/>
+      {/* <Pavement  position={[0, 0.1, 0]} rotation={[toRadians(90), toRadians(0),toRadians(0)]}/> */}
     </>
   )
 }
