@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/fair-react-fiber/static/css/main.59b41507.css",
-    "main.js": "/fair-react-fiber/static/js/main.70ce3a1d.js",
+    "main.js": "/fair-react-fiber/static/js/main.0256f356.js",
     "static/js/787.3e696e41.chunk.js": "/fair-react-fiber/static/js/787.3e696e41.chunk.js",
     "static/media/dome.glb": "/fair-react-fiber/static/media/dome.16bc7629dd178a2635d6.glb",
     "static/media/expoBooth.glb": "/fair-react-fiber/static/media/expoBooth.afb69075bc7573336fc3.glb",
     "index.html": "/fair-react-fiber/index.html",
     "main.59b41507.css.map": "/fair-react-fiber/static/css/main.59b41507.css.map",
-    "main.70ce3a1d.js.map": "/fair-react-fiber/static/js/main.70ce3a1d.js.map",
+    "main.0256f356.js.map": "/fair-react-fiber/static/js/main.0256f356.js.map",
     "787.3e696e41.chunk.js.map": "/fair-react-fiber/static/js/787.3e696e41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.59b41507.css",
-    "static/js/main.70ce3a1d.js"
+    "static/js/main.0256f356.js"
   ]
 }
