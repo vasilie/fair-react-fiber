@@ -13,6 +13,7 @@ import Sector from './components/Sector';
 import { useControls } from 'leva'
 import Grid from "../src/components/Grid";
 import GridProvider from "./Contexts/GridContext";
+import { Lamp } from "./components/models/Lamp";
 export default function App() {
 
   // const { sectorAngle } =  useControls({sectorAngle: { value: 0, min: 0, max: 360}});

@@ -15,16 +15,8 @@ function Sector({innerRadius, outerRadius,angle, length, sectorId, sectorColor, 
     "#333",
     "white",
   ];
-  
-  const extrudeSettings = {
-	steps: 2,
-	depth: 16,
-	bevelEnabled: true,
-	bevelThickness: 1,
-	bevelSize: 1,
-	bevelOffset: 0,
-	bevelSegments: 1
-};
+
+
   // Subscribe this component to the render-loop, rotate the mesh every frame
   // useFrame((state, delta) => (ref.current.rotation.x += delta))
   // Return the view, these are regular Threejs elements expressed in JSX
@@ -37,7 +29,7 @@ function Sector({innerRadius, outerRadius,angle, length, sectorId, sectorColor, 
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
       <ringGeometry
-        args={[innerRadius, outerRadius, 50 ,1, toRadians(angle) -toRadians(90), toRadians(getAngleFromLengthAndRadius(length, innerRadius))]}
+        args={[outerRadius, outerRadius + 1, 50 ,1, toRadians(angle) -toRadians(90), toRadians(getAngleFromLengthAndRadius(length, innerRadius))]}
       />
       <meshStandardMaterial roughness={0.7} metalness={1} color={sectorId ? sectorColor : "white"}></meshStandardMaterial>
     </mesh>

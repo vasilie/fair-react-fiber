@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians } from '../lib/helpers/math';
 import { Line } from "@react-three/drei";
 import { useContext } from "react";
+import { Lamp } from "./models/Lamp";
 import { GridContext } from "../Contexts/GridContext";
 
 const Pavement = (props) => {
@@ -49,6 +50,14 @@ const Pavement = (props) => {
 
   const points = [pointA, pointB, pointC, pointD, pointABevelLine, pointBBevelLine, pointCBevelLine, pointDBevelLine];
 
+  const lampAPoint = getPointOnACircle(toRadians(-startingAngle - 2.5), innerRadius + 0.5, 0.10);
+  const lampARotation = [0, toRadians(-startingAngle - 2.5), 0];
+  const lampBPoint = getPointOnACircle(toRadians(-startingAngle - segmentThetaAngle * 0.33 + 2.5), innerRadius + 0.5, 0.10);
+  const lampBRotation = [0, toRadians(-startingAngle - ((segmentThetaAngle - 5) * 0.33) + 2.5), 0];
+  const lampCPoint = getPointOnACircle(toRadians(-startingAngle - (segmentThetaAngle - 5) * 0.66 + 2.5), innerRadius + 0.5, 0.10);
+  const lampCRotation = [0, toRadians(-startingAngle - (segmentThetaAngle - 5) * 0.66 + 2.5), 0];
+  const lampDPoint = getPointOnACircle(toRadians(-startingAngle - segmentThetaAngle + 2.5), innerRadius + 0.5, 0.10);
+  const lampDRotation = [0, toRadians(-startingAngle - segmentThetaAngle + 2.5), 0];
     
   shape.absarc(0, 0, outerRadius, toRadians(0 + offsetAngle - startingAngle + outerBevelOffsetAnle), toRadians(45 + offsetAngle - startingAngle - outerBevelOffsetAnle))
   shape.absarc(pointDBevel[0], pointDBevel[2], bevelOffset ,toRadians(270 - startingAngle), toRadians(0 - startingAngle), false);
@@ -70,6 +79,10 @@ const Pavement = (props) => {
         <meshStandardMaterial roughness={0.7} metalness={1} color={"lightGray"}></meshStandardMaterial>
       </mesh>
       {debugGrid && points.map(point => <Line color="green" points={[point, [ point[0], point[1] + 10, point[2]]]}/>)}
+      <Lamp position={lampAPoint} scale={16} rotation={lampARotation}/>
+      {/* <Lamp position={lampBPoint} scale={16} rotation={lampBRotation}/>
+      <Lamp position={lampCPoint} scale={16} rotation={lampCRotation}/> */}
+      <Lamp position={lampDPoint} scale={16} rotation={lampDRotation}/>
     </>
   );
 }

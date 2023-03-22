@@ -23,18 +23,21 @@ function GridProvider({ children }) {
   const maxCells = Math.floor(radiusLength / gridSizeX);
   const circlePoints = generateCurvedLinePoints(50, radius, 360 ,0.31);
   const [gridPositions, setGridPositions] = useState([]);
-  
+  const [quadrants, setQuadrants] = useState([]);
+
   useEffect(()=> {
     let positions = generatePossibleGridPositions();
 
     let newPositions = positions;
     for (let i = 0; i < dummyData.length; i++) {
       let sectorColor = getRandomColor();
-      newPositions = assignPositionToItems(dummyData[i].items, newPositions, dummyData[i].id, dummyData[i].label, sectorColor);
+      newPositions = assignPositionToItems(dummyData[i].items, newPositions, dummyData[i].id, dummyData[i].label);
     }
 
     setGridPositions(positions);
   }, [gridSizeX])
+
+
 
  const generatePossibleGridPositions = () => {
     let gridPositions = [];

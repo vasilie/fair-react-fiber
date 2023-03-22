@@ -38,7 +38,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
   return (
     <>
       {debugCellBoundingBox && <Line color="red" points={points}></Line>}
-      <Billboard
+      {/* <Billboard
           follow={true}
           lockX={false}
           lockY={false}
@@ -46,7 +46,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
           lockZ={false} // Lock the rotation on the z axis (default=false)
         >
         <Text outlineWidth={0.1} fontSize={0.8} outlineColor="white" color="#333" >{sectorId}</Text>
-      </Billboard>
+      </Billboard> */}
       <group position={[0 + quadrantDistanceToMove[0] , 0.03, 0 + quadrantDistanceToMove[2]]}>
       {/* <Sector
         length={gridSizeX}
@@ -61,7 +61,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
     
 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
-      <ExpoBooth2 scale={20} position={childPositionPulledBack} rotation={childRotation}></ExpoBooth2>
+      <ExpoBooth2 scale={20} position={childPositionPulledBack} color={sectorColor} rotation={childRotation}></ExpoBooth2>
       {/* <Pavement  position={[0, 0.1, 0]} rotation={[toRadians(90), toRadians(0),toRadians(0)]}/> */}
     </>
   )
