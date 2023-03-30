@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import * as THREE from 'three';
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians } from '../lib/helpers/math';
-import { Line } from "@react-three/drei";
+import { Line, ContactShadows } from "@react-three/drei";
 import { useContext } from "react";
 import { Lamp } from "./models/Lamp";
 import { GridContext } from "../Contexts/GridContext";
@@ -76,7 +76,7 @@ const Pavement = (props) => {
         receiveShadow
       >
         <extrudeBufferGeometry attach="geometry" args={[shape, extrudeSettings]} />
-        <meshStandardMaterial roughness={0.7} metalness={0.7} color={"white"}></meshStandardMaterial>
+        <meshStandardMaterial metalness={0.7}  roughness={0.7} color={"white"}></meshStandardMaterial>
       </mesh>
       {debugGrid && points.map(point => <Line color="green" points={[point, [ point[0], point[1] + 10, point[2]]]}/>)}
       <Lamp position={lampAPoint} scale={16} rotation={lampARotation}/>

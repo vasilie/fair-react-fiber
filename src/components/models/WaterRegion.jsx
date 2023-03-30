@@ -15,13 +15,17 @@ export function WaterRegion(props) {
           receiveShadow
           geometry={nodes.geo1.geometry}
           material={materials.grey}
-        />
+        >
+          <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.geo1_1.geometry}
           material={materials.water}
-        />
+        >
+          <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+        </mesh>
       </group>
     </group>
   );

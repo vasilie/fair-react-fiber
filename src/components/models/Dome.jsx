@@ -15,14 +15,18 @@ export function Dome(props) {
           castShadow
           receiveShadow
           geometry={nodes.geo1001.geometry}
-          material={materials["frame.001"]}
-        />
+          // material={materials["frame.002"]}
+        >
+        <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+        </mesh>
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.geo1001_1.geometry}
-          material={materials["GLass.001"]}
-        />
+          // material={materials["GLass.001"]}
+        >
+        <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+        </mesh>
       </group>
       <mesh
         castShadow
@@ -30,7 +34,9 @@ export function Dome(props) {
         geometry={nodes.Cylinder.geometry}
         material={materials.frame}
         scale={[0.7, 7, 0.7]}
-      />
+      >
+        <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+      </mesh>
     </group>
   );
 }

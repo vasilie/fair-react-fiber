@@ -78,7 +78,10 @@ const Grid = ({}) => {
       }
       map[i] = rowsArray;
     }
-    return <Instances castShadow receiveShadow range={1000} material={materials["frame.001"]} geometry={nodes.ExpoBooth.geometry}>{map}</Instances>;
+    return <Instances castShadow receiveShadow range={1000}  geometry={nodes.ExpoBooth.geometry}>
+      {map}
+      <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+      </Instances>;
   }
 
   return (
