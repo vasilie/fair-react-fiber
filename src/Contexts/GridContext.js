@@ -9,11 +9,11 @@ export const GridContext = createContext();
 function GridProvider({ children }) {
 
   const { gridSizeX, gridSizeY, gridSnapAngle, radius, maxRows, debugGrid, quadrantAngle } = useControls({
-    gridSizeX: {value: 3, min: 1, max: 10 },
-    gridSizeY: {value: 5, min: 2, max: 5.35 },
+    gridSizeX: {value: 2.09, min: 1, max: 10 },
+    gridSizeY: {value: 4.7, min: 2, max: 15.35 },
     gridSnapAngle: {value: 45, min:30, max: 180, step: 15},
     radius: {value: 12, min:5, max: 20},
-    maxRows: {value: 5, min: 1, max: 15, step: 1 },
+    maxRows: {value: 8, min: 1, max: 15, step: 1 },
     debugGrid: { value: false },
     quadrantAngle: { value: 45 },
   });

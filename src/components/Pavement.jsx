@@ -27,7 +27,7 @@ const Pavement = (props) => {
   let outerRadius = radius + gridSizeY - 1;
   
   const offsetAngle = -135;
-  const bevelOffset = 1;
+  const bevelOffset = 0.75;
   const innerBevelOffsetAnle = getAngleFromLengthAndRadius(bevelOffset, innerRadius + bevelOffset);
   const outerBevelOffsetAnle = getAngleFromLengthAndRadius(bevelOffset, outerRadius - bevelOffset);
 
@@ -76,7 +76,7 @@ const Pavement = (props) => {
         receiveShadow
       >
         <extrudeBufferGeometry attach="geometry" args={[shape, extrudeSettings]} />
-        <meshStandardMaterial roughness={0.7} metalness={1} color={"lightGray"}></meshStandardMaterial>
+        <meshStandardMaterial roughness={0.7} metalness={0.7} color={"white"}></meshStandardMaterial>
       </mesh>
       {debugGrid && points.map(point => <Line color="green" points={[point, [ point[0], point[1] + 10, point[2]]]}/>)}
       <Lamp position={lampAPoint} scale={16} rotation={lampARotation}/>

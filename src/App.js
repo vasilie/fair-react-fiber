@@ -14,15 +14,24 @@ import { useControls } from 'leva'
 import Grid from "../src/components/Grid";
 import GridProvider from "./Contexts/GridContext";
 import { Lamp } from "./components/models/Lamp";
+import { WaterRegion } from "./components/models/WaterRegion";
+import { toRadians } from "./lib/helpers/math";
+import { getPointOnACircle } from "./lib/helpers/math";
 export default function App() {
 
   // const { sectorAngle } =  useControls({sectorAngle: { value: 0, min: 0, max: 360}});
   const { gridSizeX, gridSizeY, gridSnapAngle, radius } = useControls({
-    gridSizeX: {value: 3, min: 1, max: 10 },
-    gridSizeY: {value: 5, min: 2, max: 5.35 },
+    gridSizeX: {value: 2.09, min: 1, max: 10 },
+    gridSizeY: {value: 4.7, min: 2, max: 15.35 },
     gridSnapAngle: {value: 45, min:30, max: 180, step: 15},
-    radius: {value: 12, min:5, max: 20},
+    radius: {value: 8.1, min:5, max: 20},
   });
+
+  const gardenMiddleZeroPosition = getPointOnACircle(toRadians(45), radius, 0.1);
+  const gardenMovePosition = getPointOnACircle(toRadians(45), radius + 0.8, 0.1);
+  const gardenDistanceToMove = [gardenMovePosition[0] - gardenMiddleZeroPosition[0], 0, gardenMovePosition[2] - gardenMiddleZeroPosition[2]];
+
+
 
   return (
     <div className="main">
@@ -53,10 +62,15 @@ export default function App() {
               snapAngle={gridSnapAngle}
             />
           </GridProvider>
-          <Dome position={[0,0,0]} scale={8}></Dome>
+          <Dome position={[0,0,0]} scale={7}></Dome>
         </Suspense>
         <Sector position={[0, 0.003, 0]} rotation={[-Math.PI / 2, 0, 0 * Math.PI / 180]}></Sector>
-        <Environment background preset="sunset" blur={0.8} />
+        <Environment background preset="sunset" blur={0.8}  />
+        <group position={gardenDistanceToMove}>
+          <WaterRegion position={[0, 0.01, 0]} scale={20} rotation={[0, toRadians(90), 0]}/>
+        </group>
+        
+        <Line color="purple" points={[[0,1,0], [gardenMovePosition[0],1,gardenMovePosition[2]]]}></Line>
         <OrbitControls autoRotate autoRotateSpeed={0.05} enableZoom={false} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
       </Canvas>
       

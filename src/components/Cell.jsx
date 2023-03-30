@@ -61,7 +61,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
     
 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
-      <ExpoBooth2 scale={20} position={childPositionPulledBack} color={sectorColor} rotation={childRotation}></ExpoBooth2>
+      <ExpoBooth2 scale={14} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
       {/* <Pavement  position={[0, 0.1, 0]} rotation={[toRadians(90), toRadians(0),toRadians(0)]}/> */}
     </>
   )

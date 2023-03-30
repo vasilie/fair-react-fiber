@@ -9,7 +9,9 @@ import * as THREE from "three";
 export function ExpoBooth2(props) {
   const ref = useRef();
   useEffect(()=> {
-    ref.current.color = new THREE.Color(props.color);
+    ref.current.color = new THREE.Color("white");
+    ref.current.metalness = 0.3;
+    ref.current.roughness = 0.3;
   },[])
 
   return (

@@ -46,8 +46,9 @@ const Grid = ({}) => {
 
   const DebugRowLines = () => {
     let lines = [];
+    lines[0] = <Line color="indianred" points={generateCurvedLinePoints(50, 9.3, 360 ,0.1)}/>;
     for (let i = 0; i < maxRows + 1; i++) {
-      lines[i] = <Line color="green" points={generateCurvedLinePoints(50, radius + gridSizeY * i, 360 ,0.1)}/>  ;
+      lines[i+1] = <Line color="green" points={generateCurvedLinePoints(50, radius + gridSizeY * i, 360 ,0.1)}/>  ;
     }
     return lines;
   }

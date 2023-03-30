@@ -15,6 +15,7 @@ const Quadrant = ({startingAngle, pullbackPosition }) => {
   }
 
   return (
+    // <group >
     <group position={pullbackPosition}>
       {debugGrid && <>
         <Line color="purple" points={[[0,0.01,0], getPointOnACircle(toRadians(startingAngle), 3 * radius, 0.1)]} />
