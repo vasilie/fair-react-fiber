@@ -52,10 +52,10 @@ const Pavement = (props) => {
 
   const lampAPoint = getPointOnACircle(toRadians(-startingAngle - 2.5), innerRadius + 0.5, 0.10);
   const lampARotation = [0, toRadians(-startingAngle - 2.5), 0];
-  const lampBPoint = getPointOnACircle(toRadians(-startingAngle - segmentThetaAngle * 0.33 + 2.5), innerRadius + 0.5, 0.10);
-  const lampBRotation = [0, toRadians(-startingAngle - ((segmentThetaAngle - 5) * 0.33) + 2.5), 0];
-  const lampCPoint = getPointOnACircle(toRadians(-startingAngle - (segmentThetaAngle - 5) * 0.66 + 2.5), innerRadius + 0.5, 0.10);
-  const lampCRotation = [0, toRadians(-startingAngle - (segmentThetaAngle - 5) * 0.66 + 2.5), 0];
+  const lampBPoint = getPointOnACircle(toRadians(-startingAngle - segmentThetaAngle + 2.5), outerRadius - 0.5, 0.10);
+  const lampBRotation = [0, toRadians(-startingAngle - segmentThetaAngle + 2.5), 0];
+  const lampCPoint = getPointOnACircle(toRadians(-startingAngle - 2.5), outerRadius - 0.5, 0.10);
+  const lampCRotation = [0, toRadians(-startingAngle - 2.5), 0];
   const lampDPoint = getPointOnACircle(toRadians(-startingAngle - segmentThetaAngle + 2.5), innerRadius + 0.5, 0.10);
   const lampDRotation = [0, toRadians(-startingAngle - segmentThetaAngle + 2.5), 0];
     
@@ -80,8 +80,8 @@ const Pavement = (props) => {
       </mesh>
       {debugGrid && points.map(point => <Line color="green" points={[point, [ point[0], point[1] + 10, point[2]]]}/>)}
       <Lamp position={lampAPoint} scale={16} rotation={lampARotation}/>
-      {/* <Lamp position={lampBPoint} scale={16} rotation={lampBRotation}/>
-      <Lamp position={lampCPoint} scale={16} rotation={lampCRotation}/> */}
+     <Lamp position={lampBPoint} scale={16} rotation={lampBRotation}/>
+      <Lamp position={lampCPoint} scale={16} rotation={lampCRotation}/>
       <Lamp position={lampDPoint} scale={16} rotation={lampDRotation}/>
     </>
   );

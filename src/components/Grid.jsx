@@ -80,7 +80,7 @@ const Grid = ({}) => {
     }
     return <Instances castShadow receiveShadow range={1000}  geometry={nodes.ExpoBooth.geometry}>
       {map}
-      <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+      <meshStandardMaterial metalness={0.7}  roughness={0.7} color={"white"}></meshStandardMaterial>
       </Instances>;
   }
 
