@@ -97,7 +97,7 @@ function GridProvider({ children }) {
               console.log(`[${[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row]}] in quadrant`);
               console.log("placing",[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row] )
               lastAssignedPosition = [x, row];
-              gridPositions[row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] = {...items[i], sectorId, label, sectorColor};
+              gridPositions[row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] = {...items[i], sectorId, sectorColor};
               itemAssigned = true;
             } else {
               console.log(`[${[x + startingPosition[0], row]}] not in quadrant ${currentQuadrant}`);

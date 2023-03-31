@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import {useFrame } from '@react-three/fiber'
+import { Html } from '@react-three/drei';
 import PropTypes from "prop-types";
 function Box(props) {
 
@@ -22,6 +23,12 @@ function Box(props) {
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
       <boxGeometry args={size} />
+      <Html >
+        <div class="content">
+          hello <br />
+          world
+        </div>
+      </Html>
       <meshStandardMaterial metalness={metalness} roughness={roughness} color={(props.clickable && hovered)? "#E0167E" : props.color} />
     </mesh>
   )

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, Suspense } from "react";
-import { Line, Billboard, Text } from "@react-three/drei"
+import { Line, Billboard, Text, Html } from "@react-three/drei"
 import { getPointOnACircle, toDegrees, toRadians, getQuadrantFromAngle, getAngleFromLengthAndRadius } from "../lib/helpers/math";
 import Box from "./Box";
 import { useControls } from "leva";
@@ -12,7 +12,7 @@ import Pavement from "./Pavement";
 
 import { Vector3 } from "three";
 
-const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedOnRow, sectorId, sectorColor, quadrant}) => {
+const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedOnRow, sectorId, sectorColor, quadrant, label}) => {
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
 
@@ -57,11 +57,12 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
         angle={toDegrees(positionX * cellWidthInDegreesBasedOnRow + cellWidthInDegreesBasedOnRow)}
         sectorColor={sectorColor}
         rotation={[-Math.PI / 2, 0, 0]} /> */}
+
       </group>
     
 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
-      <ExpoBooth2 scale={14} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
+      <ExpoBooth2 label={label} sectorId={sectorId} scale={14} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
       {/* <Pavement  position={[0, 0.1, 0]} rotation={[toRadians(90), toRadians(0),toRadians(0)]}/> */}
     </>
   )
@@ -69,10 +70,14 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
 
 Cell.defaultProps = {
   positionX: 7,
+  sectorId: "Unknown",
+  label: "No name",
 }
 
 Cell.propTypes = {
   position: PropTypes.array,
+  sectorId: PropTypes.string,
+  label: PropTypes.string,
 }
 
 export default Cell;

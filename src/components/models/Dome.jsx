@@ -23,7 +23,7 @@ export function Dome(props) {
           castShadow
           receiveShadow
           geometry={nodes.geo1001_1.geometry}
-          // material={materials["GLass.001"]}
+          material={materials["GLass.001"]}
         >
         <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
         </mesh>

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 import { useState, useEffect, useContext } from "react";
-import { Line, useGLTF, Instances } from "@react-three/drei";
+import { Line, useGLTF, Instances, Html } from "@react-three/drei";
 import { useControls } from "leva";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
 import { generateCurvedLinePoints, getRandomColor  } from "../lib/helpers/sceneGeneration";
@@ -80,6 +80,7 @@ const Grid = ({}) => {
     }
     return <Instances castShadow receiveShadow range={1000}  geometry={nodes.ExpoBooth.geometry}>
       {map}
+  
       <meshStandardMaterial metalness={0.7}  roughness={0.7} color={"white"}></meshStandardMaterial>
       </Instances>;
   }
