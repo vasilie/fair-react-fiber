@@ -24,7 +24,7 @@ export function WaterRegion(props) {
           geometry={nodes.geo1_1.geometry}
           material={materials.water}
         >
-          <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+          {/* <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial> */}
         </mesh>
       </group>
     </group>
