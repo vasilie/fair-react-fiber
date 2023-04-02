@@ -1,6 +1,6 @@
-import { Suspense } from "react";
+import { Suspense, useContext, useState, useTransition } from "react";
 import { Canvas, useFrame,useThree, extend } from '@react-three/fiber'
-import { OrbitControls,  Stage, Environment, ContactShadows, RandomizedLight, Line, SoftShadows, Effects, Html} from '@react-three/drei'
+import { OrbitControls,  Stage, Environment, ContactShadows, RandomizedLight, Line, SoftShadows, Effects, Html, Sky} from '@react-three/drei'
 import './index.css';
 import Box from "./components/Box";
 import { Dome } from "./components/models/Dome";
@@ -9,10 +9,11 @@ import { generateCubes, generateCurvedLinePoints } from './lib/helpers/sceneGene
 import "./styles.css"
 import { dummyData } from './lib/helpers/dummyData';
 import { AmbientLight, CircleGeometry } from 'three';
+import * as THREE from 'three';
 import Sector from './components/Sector';
-import { useControls } from 'leva'
+import { useControls, folder } from 'leva'
 import Grid from "../src/components/Grid";
-import GridProvider from "./Contexts/GridContext";
+import GridProvider, { GridContext } from "./Contexts/GridContext";
 import { Lamp } from "./components/models/Lamp";
 import { WaterRegion } from "./components/models/WaterRegion";
 import { toRadians } from "./lib/helpers/math";
@@ -29,14 +30,32 @@ import { Windmil } from "./components/models/Windmill";
 extend({ SAOPass  });
 
 export default function App() {
-  
+  const hemisphereColor = new THREE.Color();
+  const hemisphereGroundColor = new THREE.Color();
+  hemisphereColor.setHSL( 0.6, 1, 0.6 ); 
+  hemisphereGroundColor.setHSL( 0.095, 1, 0.75 ); 
+  const [envPreset, setPreset] = useState('sunset');
   // const { sectorAngle } =  useControls({sectorAngle: { value: 0, min: 0, max: 360}});
-  const { gridSizeX, gridSizeY, gridSnapAngle, radius } = useControls({
-    gridSizeX: {value: 2.09, min: 1, max: 10 },
-    gridSizeY: {value: 4.7, min: 2, max: 15.35 },
-    gridSnapAngle: {value: 45, min:30, max: 180, step: 15},
-    radius: {value: 8.1, min:5, max: 20},
+  const { ambientColor, ambientIntensity, saoEnabled, dirColor, dirIntensity, environmentPreset } = useControls({
+    "SAO Pass": folder({
+      saoEnabled: true,
+    }),
+    "Lights": folder({
+      dirColor: "#fffbb4",
+      dirIntensity: {value: 0.8, min: 0, max: 2},
+      ambientColor: "#29add6",
+      ambientIntensity: {value: 0.1, min: 0, max: 1},
+      environmentPreset: {
+        value: 'sunset',
+        options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
+        // If onChange is present the value will not be reactive, see https://github.com/pmndrs/leva/blob/main/docs/advanced/controlled-inputs.md#onchange
+        // Instead we transition the preset value, which will prevents the suspense bound from triggering its fallback
+        // That way we can hang onto the current environment until the new one has finished loading ...
+      }
+    })
   });
+
+  const radius = 8.1;
 
   const gardenMiddleZeroPosition = getPointOnACircle(toRadians(45), radius, 0.1);
   const gardenMovePosition = getPointOnACircle(toRadians(45), radius + 0.8, 0.1);
@@ -47,37 +66,20 @@ export default function App() {
   return (
     <div className="main">
       <Canvas  shadows camera={{ position: [0, 13, -25], fov: 80, }} >
-
         {/* <Grid renderOrder={-1} sectionColor={[0.51, 0.51, 0.41, 0.1]} opacity={0.1} position={[0, 0.01, 0]} infiniteGrid/> */}
-        <directionalLight 
-          position={[10, 20, 30]}
-          angle={0.4}
-          penumbra={1}
-          castShadow
-          intensity={1}
-          shadow-mapSize-width={2048}
-          shadow-mapSize-height={2048}
-          shadow-bias={0.0002}
-        >
- 
-         <orthographicCamera shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 200]} />
-        </directionalLight>
-        <Stage contactShadow={{ opacity: 1, blur: 0.5 }} intensity={0.1} environment="apartment" shadows="contact" adjustCamera={false} />
+   
+        
         {/* <Box renderOrder={0} castShadow clickable size={[2, 2, 2]}  position={[0, 1, 0]} color="#E8E8EB" roughness={0.1} metalness={0.9}/> */}
         {/* <Box size={[350, 0, 350]} metalness={0.7}  roughness={0.7} rotation={[ Math.PI, 0 , 0]} position={[0, 0, 0]} color="white" /> */}
         {/* {cubes.map(cube => <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" {...cube} />)} */}
 
         <Suspense fallback={null}> 
           <Landscape position={[0, -0.1, 0]} scale={2.9}/>
-          <GridProvider>
-            <Grid 
-              position = {[0, 0, 0]}
-              gridSizeX={gridSizeX}
-              gridSizeY={gridSizeY}
-              radius={radius}
-              snapAngle={gridSnapAngle}
-            />
-          </GridProvider>
+          {/* <Stage adjustCamera={false} intensity={0.0000001} shadows="accumulative" > */}
+            <GridProvider>
+              <Grid />
+            </GridProvider>
+          {/* </Stage> */}
           <Dome position={[0,0,0]} scale={7}></Dome>
           <group position={gardenDistanceToMove}>
             <WaterRegion position={[0, 0.01, 0]} scale={20} rotation={[0, toRadians(90), 0]}/>
@@ -178,20 +180,33 @@ export default function App() {
               <Tree4 position={[-8.3, 0.01, 17.4]} scale={17}/>
             </group>
           </group>
-          <fog attach="fog" args={['white', 190, 200]} />
         </Suspense>
-        <color attach="background" args={['white']} />
-        
-        <hemisphereLight color="white"  position={[-7, 25, 13]} intensity={0.14} />
-        {/* <ambientLight castShadow  color="white" intensity={0.2}/> */}
-        {/* <Environment background preset="apartment" blur={1}  /> */}
-        <Scene /> 
-       
         <Windmil  position={[36, -0.1, 36]}  scale={2} rotation={[0, toRadians(225), 0]}/>
         <Windmil  position={[20, -0.1, 50]}  scale={2} rotation={[0, toRadians(225), 0]}/>
         <Windmil  position={[50, -0.1, 20]}  scale={2} rotation={[0, toRadians(225), 0]}/>
         {/* <Line color="purple" points={[[0,1,0], [gardenMovePosition[0],1,gardenMovePosition[2]]]}></Line> */}
         <OrbitControls autoRotate autoRotateSpeed={0.05} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
+        {/* <color attach="background" args={['white']} /> */}
+
+        <hemisphereLight color={hemisphereColor}  groundColor={hemisphereGroundColor} position={[-7, 25, 13]} intensity={0.5} />
+        <ambientLight color={ambientColor} intensity={ambientIntensity}/>
+        <directionalLight 
+          position={[10, 50, 30]}
+          angle={0.3}
+          penumbra={1}
+          castShadow
+          intensity={dirIntensity}
+          color={dirColor}
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
+          shadow-bias={0.0001}
+        >
+ 
+         <orthographicCamera shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 200]} />
+        </directionalLight>
+        <Environment background preset={environmentPreset} blur={1}  />
+        {saoEnabled && <Scene />} 
+        <Sky scale={1000} sunPosition={[10, 10, 30]} turbidity={0.1} />
       </Canvas>
       
     </div>
@@ -200,20 +215,32 @@ export default function App() {
 
 function Scene() {
   const { size, scene, camera } = useThree();
+  const {saoBias, saoIntensity, saoScale, saoKernelRadius, saoMinResolution, saoBlur, saoBlurRadius, saoBlurStdDev, saoBlurDepthCutoff } = useControls("SAO Pass",{
+    saoBias: {value: 0.06, min: 0, max: 2 }, // Set the SAO bias here
+    saoIntensity: {value: 0.02, min: 0, max: 2 },
+    saoScale: {value: 100, min: 0, max:100 },
+    saoKernelRadius: {value: 27, min: 0, max:100 },
+    saoMinResolution: {value: 0.00001, min: 0, max:2 },
+    saoBlur: true,
+    saoBlurRadius: {value: 4, min: 0, max:200 },
+    saoBlurStdDev: {value: 2, min: 0, max:200 },
+    saoBlurDepthCutoff:{value: 0.65, min: 0, max:5 },
+  });
+
   return (
     <>
         <Effects multisamping={8} renderIndex={10} disableGamma={false} disableRenderPass={false} disableRender={false}>
           <sAOPass args={[scene, camera]} params={{
-            output: 1,
-            saoBias: 0.2, // Set the SAO bias here
-            saoIntensity: 1.5,
-            saoScale: 200,
-            saoKernelRadius: 100,
-            saoMinResolution: 0,
-            saoBlur: true,
-            saoBlurRadius: 8,
-            saoBlurStdDev: 4,
-            saoBlurDepthCutoff: 0.01,
+            output:  0,
+            saoBias: saoBias, // Set the SAO bias here
+            saoIntensity: saoIntensity,
+            saoScale: saoScale,
+            saoKernelRadius:saoKernelRadius,
+            saoMinResolution:saoMinResolution,
+            saoBlur: saoBlur,
+            saoBlurRadius: saoBlurRadius,
+            saoBlurStdDev: saoBlurStdDev,
+            saoBlurDepthCutoff: saoBlurDepthCutoff,
           }}/>
   
         </Effects>

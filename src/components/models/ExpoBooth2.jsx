@@ -17,12 +17,12 @@ export function ExpoBooth2(props) {
 
   return (
     <group {...props} dispose={null}>
-      {hovered && <Html>
-        <div className="content" >
+      {/* <Html>
+        <div className={`content ${hovered && "active"}`} >
           <div className="name">{props.label}</div>
           <div className="sector">{props.sectorId}</div>
         </div>
-        </Html>}
+        </Html> */}
       <Instance ref={ref} castShadow receiveShadow
         onPointerOver={(event) => hover(true)}
         onPointerOut={(event) => hover(false)}

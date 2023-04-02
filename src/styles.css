@@ -37,6 +37,10 @@ canvas {
   left: -40px;
   position: relative;
   width: 100px;
+  display: none;
+}
+.content.active {
+  display: block;
 }
 
 .content::before {

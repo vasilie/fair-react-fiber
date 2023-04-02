@@ -6,6 +6,7 @@ import React, { useRef, useEffect } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import modelPath from "./windmil.glb";
+import DefaultMaterial from "../materials/DefaultMaterial";
 
 export function Windmil(props) {
   const group = useRef();
@@ -26,7 +27,9 @@ export function Windmil(props) {
           material={nodes.Cylinder.material}
           position={[0, 0.37, 0]}
           scale={0.37}
-        />
+        >
+          <DefaultMaterial />  
+        </mesh>
         <mesh
           name="Cylinder001"
           castShadow
@@ -36,7 +39,9 @@ export function Windmil(props) {
           position={[0, 6.49, -0.14]}
           rotation={[Math.PI / 2, 0, 0]}
           scale={[0.29, 0.37, 0.29]}
-        />
+        >
+          <DefaultMaterial />  
+        </mesh>
         <mesh
           name="Cylinder003"
           castShadow
@@ -47,7 +52,9 @@ export function Windmil(props) {
           rotation={[Math.PI / 2, 0, 0]}
           scale={[0.29, 0.37, 0.29]}
           ref={blades}
-        />
+          >
+          <DefaultMaterial />  
+        </mesh>
       </group>
     </group>
   );

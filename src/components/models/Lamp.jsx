@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import modelPath from "./StreetLight_02.glb";
+import DefaultMaterial from "../materials/DefaultMaterial";
 export function Lamp(props) {
   const { nodes, materials } = useGLTF(modelPath);
   return (
@@ -12,7 +13,7 @@ export function Lamp(props) {
         geometry={nodes.geo1.geometry}
         material={materials.Frame}
       >
-        <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+        <DefaultMaterial />
       </mesh>
       <mesh
         castShadow
@@ -20,7 +21,7 @@ export function Lamp(props) {
         geometry={nodes.geo1_1.geometry}
         material={materials.Bulb}
       >
-        <meshStandardMaterial metalness={0.7} roughness={0.7} color={"white"}></meshStandardMaterial>
+        <DefaultMaterial />
       </mesh>
     </group>
   );

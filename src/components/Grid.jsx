@@ -12,6 +12,7 @@ import Pavement from "./Pavement";
 import Quadrant from "./Quadrant";
 import { GridContext } from "../Contexts/GridContext";
 import Quadrants from "./Quadrants";
+import DefaultMaterial from "./materials/DefaultMaterial";
 
 const Grid = ({}) => {
   const {
@@ -80,8 +81,7 @@ const Grid = ({}) => {
     }
     return <Instances castShadow receiveShadow range={1000}  geometry={nodes.ExpoBooth.geometry}>
       {map}
-  
-      <meshStandardMaterial metalness={0.7}  roughness={0.7} color={"white"}></meshStandardMaterial>
+      <DefaultMaterial />
       </Instances>;
   }
 

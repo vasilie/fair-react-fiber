@@ -8,7 +8,7 @@ export const GridContext = createContext();
 
 function GridProvider({ children }) {
 
-  const { gridSizeX, gridSizeY, gridSnapAngle, radius, maxRows, debugGrid, quadrantAngle } = useControls({
+  const { gridSizeX, gridSizeY, gridSnapAngle, radius, maxRows, debugGrid, quadrantAngle } = useControls("Scene Generation", {
     gridSizeX: {value: 2.09, min: 1, max: 10 },
     gridSizeY: {value: 4.7, min: 2, max: 15.35 },
     gridSnapAngle: {value: 45, min:30, max: 180, step: 15},
@@ -16,7 +16,7 @@ function GridProvider({ children }) {
     maxRows: {value: 8, min: 1, max: 15, step: 1 },
     debugGrid: { value: false },
     quadrantAngle: { value: 45 },
-  });
+  }, {collapsed: true, order: 10});
 
   const angle = -Math.abs(getAngleFromLengthAndRadius(gridSizeX, radius, quadrantAngle));
   const radiusLength = 2 * Math.PI * radius;
