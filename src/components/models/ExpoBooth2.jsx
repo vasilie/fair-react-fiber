@@ -12,17 +12,17 @@ export function ExpoBooth2(props) {
   const [hovered, hover] = useState(false);
 
   useFrame(()=> {
-    ref.current.color = hovered ? new THREE.Color("gray") : new THREE.Color("white");
+    ref.current.color = hovered ? new THREE.Color("indianred") : new THREE.Color("white");
   },[])
 
   return (
     <group {...props} dispose={null}>
-      {/* <Html>
+      {/* {hovered && <Html>
         <div className={`content ${hovered && "active"}`} >
           <div className="name">{props.label}</div>
           <div className="sector">{props.sectorId}</div>
         </div>
-        </Html> */}
+        </Html>} */}
       <Instance ref={ref} castShadow receiveShadow
         onPointerOver={(event) => hover(true)}
         onPointerOut={(event) => hover(false)}
