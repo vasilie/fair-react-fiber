@@ -126,7 +126,7 @@ export default function App() {
                 <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
               </group>
               <group position={[10, 0, 20]}>
-                <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
+                <Tree1 position={[11.3, 0.01, 6.4]} scale={17}/>
                 <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
                 <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
                 <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
@@ -152,15 +152,14 @@ export default function App() {
               </group>
               <group position={[22, 0, 6]}>
                 <Tree1 position={[2.3, 0.01, 13.4]} scale={17}/>
-                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+                <Tree2 position={[5.3, 0.01, 10.4]} scale={17}/>
                 <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
-                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+                <Tree3 position={[5.3, 0.01,8.4]} scale={17}/>
                 <Tree4 position={[5.3, 0.01, 6.4]} scale={17}/>
               </group>
               <group position={[36, 0, 8]}>
                 <Tree1 position={[2.3, 0.01, 13.4]} scale={17}/>
                 <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-                {/* <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/> */}
                 <Tree3 position={[3.3, 0.01,6.4]} scale={17}/>
                 <Tree4 position={[5.3, 0.01, 3.4]} scale={17}/>
               </group>
