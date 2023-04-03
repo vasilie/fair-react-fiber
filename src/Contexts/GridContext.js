@@ -23,8 +23,8 @@ function GridProvider({ children }) {
   const maxCells = Math.floor(radiusLength / gridSizeX);
   const circlePoints = generateCurvedLinePoints(50, radius, 360 ,0.31);
   const [gridPositions, setGridPositions] = useState([]);
-  const [quadrants, setQuadrants] = useState([]);
-
+  const [isSceneGenerated, setIsSceneGenerated] = useState(false);
+  const [areQuadrantsGenerated, setQuadrantsGenerated] = useState(false);
   useEffect(()=> {
     let positions = generatePossibleGridPositions();
 
@@ -37,7 +37,11 @@ function GridProvider({ children }) {
     setGridPositions(positions);
   }, [gridSizeX])
 
-
+useEffect(()=> {
+  if (gridPositions.length > 1 && areQuadrantsGenerated){ // If positions set
+    setIsSceneGenerated(true);
+  }
+}, [gridPositions, areQuadrantsGenerated]);
 
  const generatePossibleGridPositions = () => {
     let gridPositions = [];
@@ -142,6 +146,8 @@ function GridProvider({ children }) {
     checkIfInQuadrant,
     quadrantStartingXPositionBasedOnRow,
     assignPositionToItems,
+    isSceneGenerated,
+    setQuadrantsGenerated,
   }
 
   return (

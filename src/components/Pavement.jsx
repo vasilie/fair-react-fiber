@@ -14,7 +14,7 @@ const Pavement = (props) => {
 
   const extrudeSettings = {
     steps: 4,
-    depth: 0.08,
+    depth: 0.10,
     bevelEnabled: true,
     bevelThickness: 0.01,
     bevelSize: 0.01,
@@ -81,7 +81,7 @@ const Pavement = (props) => {
       </mesh>
       {debugGrid && points.map(point => <Line color="green" points={[point, [ point[0], point[1] + 10, point[2]]]}/>)}
       <Lamp position={lampAPoint} scale={16} rotation={lampARotation}/>
-     <Lamp position={lampBPoint} scale={16} rotation={lampBRotation}/>
+      <Lamp position={lampBPoint} scale={16} rotation={lampBRotation}/>
       <Lamp position={lampCPoint} scale={16} rotation={lampCRotation}/>
       <Lamp position={lampDPoint} scale={16} rotation={lampDRotation}/>
     </>

@@ -34,6 +34,7 @@ const Grid = ({}) => {
     checkIfInQuadrant,
     quadrantStartingXPositionBasedOnRow,
     assignPositionToItems,
+    isSceneGenerated,
 
   } = useContext(GridContext);
 
@@ -89,6 +90,7 @@ const Grid = ({}) => {
     <>
      <Rows />
      <Quadrants></Quadrants>
+     
     {debugGrid && (
       <>
         <Line color="red" points={[[0,0.01,0], [0,0.01,40]]} lineWidth={2}/>

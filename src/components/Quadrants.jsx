@@ -8,7 +8,7 @@ import { getPointOnACircle } from "../lib/helpers/math";
 
 const Quadrants = () => {
   
-  const { quadrantAngle, radius } = useContext(GridContext);
+  const { quadrantAngle, radius, setQuadrantsGenerated } = useContext(GridContext);
   const [quadrants, setQuadrants] = useState([]);
   
   const generateQuadrants = () => {
@@ -26,6 +26,7 @@ const Quadrants = () => {
         pullbackPosition:  quadrantDistanceToMove,
       });
     }
+    setQuadrantsGenerated(true);
    return _quadrants;
   }
 

@@ -13,8 +13,9 @@ export function Windmil(props) {
   const blades = React.useRef()
   const { nodes, materials, animations } = useGLTF(modelPath);
   const randomTime = Math.random() * 59;
+  const speedFactor = Math.random() * (0.9 - 1.1) + 0.9;
   useFrame(({clock}) => {
-    blades.current.rotation.y = clock.getElapsedTime() + randomTime;
+    blades.current.rotation.y = clock.getElapsedTime() * speedFactor + randomTime;
   });
   return (
     <group ref={group} {...props} dispose={null}>

@@ -1,6 +1,6 @@
-import { Suspense, useContext, useState, useTransition } from "react";
-import { Canvas, useFrame,useThree, extend } from '@react-three/fiber'
-import { OrbitControls,  Stage, Environment, ContactShadows, RandomizedLight, Line, SoftShadows, Effects, Html, Sky} from '@react-three/drei'
+import { Suspense, useContext, useState, useTransition, useRef } from "react";
+import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
+import { OrbitControls,  Stage, Environment, ContactShadows, RandomizedLight, Line, BakeShadows, Effects, Html, Sky, useHelper, Cloud} from '@react-three/drei'
 import './index.css';
 import Box from "./components/Box";
 import { Dome } from "./components/models/Dome";
@@ -8,7 +8,7 @@ import { generateCubes, generateCurvedLinePoints } from './lib/helpers/sceneGene
 // const radians = angleInDegrees * Math.PI / 180
 import "./styles.css"
 import { dummyData } from './lib/helpers/dummyData';
-import { AmbientLight, CircleGeometry } from 'three';
+import { AmbientLight, CircleGeometry,  CameraHelper } from 'three';
 import * as THREE from 'three';
 import Sector from './components/Sector';
 import { useControls, folder } from 'leva'
@@ -27,7 +27,7 @@ import { Tree4 } from "./components/models/Tree4";
 import { Landscape } from "./components/models/Landscape";
 import { Windmil } from "./components/models/Windmill";
 
-extend({ SAOPass  });
+extend({ SAOPass });
 
 export default function App() {
   const hemisphereColor = new THREE.Color();
@@ -55,6 +55,7 @@ export default function App() {
     })
   });
 
+  const shadowCameraRef = useRef();
   const radius = 8.1;
 
   const gardenMiddleZeroPosition = getPointOnACircle(toRadians(45), radius, 0.1);
@@ -65,155 +66,151 @@ export default function App() {
 
   return (
     <div className="main">
-      <Canvas  shadows camera={{ position: [0, 13, -25], fov: 80, }} >
-        {/* <Grid renderOrder={-1} sectionColor={[0.51, 0.51, 0.41, 0.1]} opacity={0.1} position={[0, 0.01, 0]} infiniteGrid/> */}
-   
+      <GridProvider>
+        <Canvas  shadows camera={{ position: [0, 13, -25], fov: 80, }} >
+          {/* <Grid renderOrder={-1} sectionColor={[0.51, 0.51, 0.41, 0.1]} opacity={0.1} position={[0, 0.01, 0]} infiniteGrid/> */}
+    
+          
+          {/* <Box renderOrder={0} castShadow clickable size={[2, 2, 2]}  position={[0, 1, 0]} color="#E8E8EB" roughness={0.1} metalness={0.9}/> */}
+          {/* <Box size={[350, 0, 350]} metalness={0.7}  roughness={0.7} rotation={[ Math.PI, 0 , 0]} position={[0, 0, 0]} color="white" /> */}
+          {/* {cubes.map(cube => <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" {...cube} />)} */}
+
+          <Suspense fallback={null}> 
+            <Landscape position={[0, 0, 0]} scale={2.9}/>
+            {/* <Stage adjustCamera={false} intensity={0.0000001} shadows="accumulative" > */}
+              
+            <Grid />
+                {saoEnabled && <Scene cameraRef={shadowCameraRef}/>} 
+            {/* </Stage> */}
+            
+            <Dome position={[0,0,0]} scale={7}></Dome>
+            <group position={gardenDistanceToMove}>
+              <WaterRegion position={[0, 0.01, 0]} scale={20} rotation={[0, toRadians(90), 0]}/>
+              <Theatre position={[14.3, 0.01, 14.4]} scale={8} rotation={[0, toRadians(45), 0]} />
+              <Tree2 position={[5.3, 0.01, 12.4]} scale={17}/>
+              <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
+              <Tree3 position={[5.3, 0.01, 18.4]} scale={17}/>
+              <Tree2 position={[3.3, 0.01, 18.4]} scale={17}/>
+              <Tree1 position={[5.3, 0.01, 20.4]} scale={17}/>
+              <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/>
+              <group position={[7, 0, -7]}>
+                <Tree1 position={[8.3, 0.01, 10.4]} scale={17}/>
+                <Tree2 position={[2.3, 0.01, 12.4]} scale={17}/>
+                <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[4.3, 0.01,8.4]} scale={17}/>
+                <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/>
+              </group>
+              <group position={[17, 0, -7]}>
+                <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
+                <Tree2 position={[0.3, 0.01, 8.4]} scale={17}/>
+                <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[4.3, 0.01,8.4]} scale={17}/>
+                <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/>
+              </group>
+              <group position={[27, 0, -7]}>
+                <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
+                <Tree2 position={[8.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+              </group>
+              <group position={[27, 0, 20]}>
+                <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
+                <Tree2 position={[8.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+              </group>
+              <group position={[16, 0, 16]}>
+                <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
+                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+              </group>
+              <group position={[10, 0, 20]}>
+                <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
+                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+              </group>
+              <group position={[32, 0, 0]}>
+                <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
+                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+              </group>
+              <group position={[-2, 0, 32]}>
+                <Tree1 position={[4.3, 0.01, 8.4]} scale={17}/>
+                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+              </group>
+              <group position={[-2, 0, 20]}>
+                <Tree1 position={[9.3, 0.01, 12.4]} scale={17}/>
+                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+                <Tree4 position={[5.3, 0.01, 6.4]} scale={17}/>
+              </group>
+              <group position={[22, 0, 6]}>
+                <Tree1 position={[2.3, 0.01, 13.4]} scale={17}/>
+                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
+                <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
+                <Tree4 position={[5.3, 0.01, 6.4]} scale={17}/>
+              </group>
+              <group position={[36, 0, 8]}>
+                <Tree1 position={[2.3, 0.01, 13.4]} scale={17}/>
+                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+                {/* <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/> */}
+                <Tree3 position={[3.3, 0.01,6.4]} scale={17}/>
+                <Tree4 position={[5.3, 0.01, 3.4]} scale={17}/>
+              </group>
+              <group position={[26, 0, 22]} >
+                <Tree1 position={[2.3, 0.01, 13.4]} scale={17}/>
+                <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
+              </group>
+              <group position={[20, 0, 26]} >
+                <Tree1 position={[3.3, 0.01, 13.4]} scale={17}/>
+                <Tree2 position={[6.3, 0.01, 11.4]} scale={17}/>
+                <Tree2 position={[0.3, 0.01, 13.4]} scale={17}/>
+                <Tree3 position={[-2.3, 0.01, 16.4]} scale={17}/>
+                <Tree4 position={[-8.3, 0.01, 17.4]} scale={17}/>
+              </group>
+            </group>
+          </Suspense>
+          <Windmil  position={[36, -0.1, 36]}  scale={2} rotation={[0, toRadians(225), 0]}/>
+          <Windmil  position={[20, -0.1, 50]}  scale={2} rotation={[0, toRadians(225), 0]}/>
+          <Windmil  position={[50, -0.1, 20]}  scale={2} rotation={[0, toRadians(225), 0]}/>
+          {/* <Line color="purple" points={[[0,1,0], [gardenMovePosition[0],1,gardenMovePosition[2]]]}></Line> */}
+          <OrbitControls autoRotate maxDistance={50}autoRotateSpeed={0.05} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
+          {/* <color attach="background" args={['white']} /> */}
+
+          <hemisphereLight color={hemisphereColor}  groundColor={hemisphereGroundColor} position={[-7, 25, 13]} intensity={0.5} />
+          <ambientLight color={ambientColor} intensity={ambientIntensity}/>
+          <directionalLight 
+            position={[10, 60, 50]}
+            angle={0.3}
+            penumbra={1}
+            castShadow
+            intensity={dirIntensity}
+            color={dirColor}
+            shadow-mapSize-width={4096}
+            shadow-mapSize-height={4096}
+            shadow-bias={-0.00001}
+          >
+  
+          <orthographicCamera ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
+          </directionalLight>
+          <Environment background preset={environmentPreset} blur={1}  />
+          
+          <Sky scale={1000} sunPosition={[10, 10, 30]} turbidity={0.1} />
         
-        {/* <Box renderOrder={0} castShadow clickable size={[2, 2, 2]}  position={[0, 1, 0]} color="#E8E8EB" roughness={0.1} metalness={0.9}/> */}
-        {/* <Box size={[350, 0, 350]} metalness={0.7}  roughness={0.7} rotation={[ Math.PI, 0 , 0]} position={[0, 0, 0]} color="white" /> */}
-        {/* {cubes.map(cube => <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" {...cube} />)} */}
-
-        <Suspense fallback={null}> 
-          <Landscape position={[0, -0.1, 0]} scale={2.9}/>
-          {/* <Stage adjustCamera={false} intensity={0.0000001} shadows="accumulative" > */}
-            <GridProvider>
-              <Grid />
-            </GridProvider>
-          {/* </Stage> */}
-          <Dome position={[0,0,0]} scale={7}></Dome>
-          <group position={gardenDistanceToMove}>
-            <WaterRegion position={[0, 0.01, 0]} scale={20} rotation={[0, toRadians(90), 0]}/>
-            <Theatre position={[14.3, 0.01, 14.4]} scale={8} rotation={[0, toRadians(45), 0]} />
-            {/* <Tree1 position={[7.3, 0.01, 9.4]} scale={17}/> */}
-            <Tree2 position={[5.3, 0.01, 12.4]} scale={17}/>
-            <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
-            <Tree3 position={[5.3, 0.01, 18.4]} scale={17}/>
-            <Tree2 position={[3.3, 0.01, 18.4]} scale={17}/>
-            <Tree1 position={[5.3, 0.01, 20.4]} scale={17}/>
-            <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/>
-            <group position={[7, 0, -7]}>
-              <Tree1 position={[8.3, 0.01, 10.4]} scale={17}/>
-              <Tree2 position={[2.3, 0.01, 12.4]} scale={17}/>
-              <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[4.3, 0.01,8.4]} scale={17}/>
-              <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/>
-            </group>
-            <group position={[17, 0, -7]}>
-              <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
-              <Tree2 position={[0.3, 0.01, 8.4]} scale={17}/>
-              <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[4.3, 0.01,8.4]} scale={17}/>
-              <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/>
-            </group>
-            <group position={[27, 0, -7]}>
-              <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
-              <Tree2 position={[8.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
-              {/* <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/> */}
-            </group>
-            <group position={[27, 0, 20]}>
-              <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
-              <Tree2 position={[8.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
-              {/* <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/> */}
-            </group>
-            <group position={[16, 0, 16]}>
-              <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
-              <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
-              {/* <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/> */}
-            </group>
-            <group position={[10, 0, 20]}>
-              <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
-              <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
-              {/* <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/> */}
-            </group>
-            <group position={[32, 0, 0]}>
-              <Tree1 position={[9.3, 0.01, 8.4]} scale={17}/>
-              <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
-              {/* <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/> */}
-            </group>
-            <group position={[-2, 0, 32]}>
-              <Tree1 position={[4.3, 0.01, 8.4]} scale={17}/>
-              <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
-              {/* <Tree4 position={[3.3, 0.01, 10.4]} scale={17}/> */}
-            </group>
-            <group position={[-2, 0, 20]}>
-              <Tree1 position={[9.3, 0.01, 12.4]} scale={17}/>
-              <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
-              <Tree4 position={[5.3, 0.01, 6.4]} scale={17}/>
-            </group>
-            <group position={[22, 0, 6]}>
-              <Tree1 position={[2.3, 0.01, 13.4]} scale={17}/>
-              <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/>
-              <Tree3 position={[3.3, 0.01,8.4]} scale={17}/>
-              <Tree4 position={[5.3, 0.01, 6.4]} scale={17}/>
-            </group>
-            <group position={[36, 0, 8]}>
-              <Tree1 position={[2.3, 0.01, 13.4]} scale={17}/>
-              <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-              {/* <Tree3 position={[7.3, 0.01, 10.4]} scale={17}/> */}
-              <Tree3 position={[3.3, 0.01,6.4]} scale={17}/>
-              <Tree4 position={[5.3, 0.01, 3.4]} scale={17}/>
-            </group>
-            <group position={[26, 0, 22]} >
-              <Tree1 position={[2.3, 0.01, 13.4]} scale={17}/>
-              <Tree2 position={[3.3, 0.01, 10.4]} scale={17}/>
-            </group>
-            <group position={[20, 0, 26]} >
-              <Tree1 position={[3.3, 0.01, 13.4]} scale={17}/>
-              <Tree2 position={[6.3, 0.01, 11.4]} scale={17}/>
-              <Tree2 position={[0.3, 0.01, 13.4]} scale={17}/>
-              <Tree3 position={[-2.3, 0.01, 16.4]} scale={17}/>
-              <Tree4 position={[-8.3, 0.01, 17.4]} scale={17}/>
-            </group>
-          </group>
-        </Suspense>
-        <Windmil  position={[36, -0.1, 36]}  scale={2} rotation={[0, toRadians(225), 0]}/>
-        <Windmil  position={[20, -0.1, 50]}  scale={2} rotation={[0, toRadians(225), 0]}/>
-        <Windmil  position={[50, -0.1, 20]}  scale={2} rotation={[0, toRadians(225), 0]}/>
-        {/* <Line color="purple" points={[[0,1,0], [gardenMovePosition[0],1,gardenMovePosition[2]]]}></Line> */}
-        <OrbitControls autoRotate autoRotateSpeed={0.05} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
-        {/* <color attach="background" args={['white']} /> */}
-
-        <hemisphereLight color={hemisphereColor}  groundColor={hemisphereGroundColor} position={[-7, 25, 13]} intensity={0.5} />
-        <ambientLight color={ambientColor} intensity={ambientIntensity}/>
-        <directionalLight 
-          position={[10, 50, 30]}
-          angle={0.3}
-          penumbra={1}
-          castShadow
-          intensity={dirIntensity}
-          color={dirColor}
-          shadow-mapSize-width={2048}
-          shadow-mapSize-height={2048}
-          shadow-bias={0.0001}
-        >
- 
-         <orthographicCamera shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 200]} />
-        </directionalLight>
-        <Environment background preset={environmentPreset} blur={1}  />
-        {saoEnabled && <Scene />} 
-        <Sky scale={1000} sunPosition={[10, 10, 30]} turbidity={0.1} />
-      </Canvas>
-      
+        </Canvas>
+      </GridProvider>
     </div>
   )
 }
 
-function Scene() {
+function Scene({cameraRef}) {
   const { size, scene, camera } = useThree();
   const {saoBias, saoIntensity, saoScale, saoKernelRadius, saoMinResolution, saoBlur, saoBlurRadius, saoBlurStdDev, saoBlurDepthCutoff } = useControls("SAO Pass",{
     saoBias: {value: 0.06, min: 0, max: 2 }, // Set the SAO bias here
@@ -226,7 +223,8 @@ function Scene() {
     saoBlurStdDev: {value: 2, min: 0, max:200 },
     saoBlurDepthCutoff:{value: 0.65, min: 0, max:5 },
   });
-
+  //useHelper(cameraRef, CameraHelper);
+  const {isSceneGenerated} = useContext(GridContext);
   return (
     <>
         <Effects multisamping={8} renderIndex={10} disableGamma={false} disableRenderPass={false} disableRender={false}>
@@ -242,7 +240,7 @@ function Scene() {
             saoBlurStdDev: saoBlurStdDev,
             saoBlurDepthCutoff: saoBlurDepthCutoff,
           }}/>
-  
+          {/* {isSceneGenerated && <BakeShadows />} */}
         </Effects>
     </>
   )
