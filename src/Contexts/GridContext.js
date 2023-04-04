@@ -92,7 +92,7 @@ useEffect(()=> {
     let currentRow = startingPosition[1];
     let currentQuadrant = getQuadrantPosition(startingPosition);
     
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i <= items.length; i++) {
       for (let row = currentRow; row < maxRows; row++){
         let itemAssigned = false;
 
@@ -116,10 +116,10 @@ useEffect(()=> {
         }
       }
       // Check if there is more space until the end of row in qurrent quadrant
-      if (i === items.length - 1){
+      if (i === items.length){
         let remainingEmptyCells =  getCellsPerQuadrant(lastAssignedPosition) - lastAssignedPosition[0];
         console.log("Remaining cells", remainingEmptyCells);
-        for (let x = 0; x < remainingEmptyCells + 1; x++) {
+        for (let x = 0; x < remainingEmptyCells; x++) {
           gridPositions[lastAssignedPosition[1]][lastAssignedPosition[0] + x + quadrantStartingXPositionBasedOnRow(currentQuadrant, lastAssignedPosition[1])] = {sectorId, falseBuilding: true, sectorColor};
         }
       }
