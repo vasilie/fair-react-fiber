@@ -26,6 +26,7 @@ function GridProvider({ children }) {
   const [isSceneGenerated, setIsSceneGenerated] = useState(false);
   const [areQuadrantsGenerated, setQuadrantsGenerated] = useState(false);
   const [rotateCamera, setRotateCamera] = useState(true);
+  const [isSomethingHovered, setSomethingHovered] = useState(false);
   useEffect(()=> {
     let positions = generatePossibleGridPositions();
 
@@ -150,6 +151,8 @@ useEffect(()=> {
     isSceneGenerated,
     setQuadrantsGenerated,
     rotateCamera,
+    isSomethingHovered,
+    setSomethingHovered
   }
 
   return (
