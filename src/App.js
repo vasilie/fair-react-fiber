@@ -103,7 +103,7 @@ export default function App() {
                 {saoEnabled && <Scene cameraRef={shadowCameraRef}/>} 
             {/* </Stage> */}
             
-            <Dome position={[0,0,0]} scale={7}></Dome>
+            <Dome position={[0,0.07,0]} scale={7}></Dome>
             <group position={gardenDistanceToMove}>
               <WaterRegion position={[0, 0.01, 0]} scale={20} rotation={[0, toRadians(90), 0]}/>
               <Theatre position={[14.3, 0.01, 14.4]} scale={8} rotation={[0, toRadians(45), 0]} />
