@@ -52,13 +52,13 @@ const Pavement = (props) => {
   const points = [pointA, pointB, pointC, pointD, pointABevelLine, pointBBevelLine, pointCBevelLine, pointDBevelLine];
 
   const lampAPoint = getPointOnACircle(toRadians(-startingAngle - 2.5), innerRadius + 0.5, 0.10);
-  const lampARotation = [0, toRadians(-startingAngle - 2.5), 0];
+  const lampARotation = [0, toRadians(-startingAngle - 2.5 - 90), 0];
   const lampBPoint = getPointOnACircle(toRadians(-startingAngle - segmentThetaAngle + 2.5), outerRadius - 0.5, 0.10);
-  const lampBRotation = [0, toRadians(-startingAngle - segmentThetaAngle + 2.5), 0];
+  const lampBRotation = [0, toRadians(-startingAngle - segmentThetaAngle + 2.5 - 90), 0];
   const lampCPoint = getPointOnACircle(toRadians(-startingAngle - 2.5), outerRadius - 0.5, 0.10);
-  const lampCRotation = [0, toRadians(-startingAngle - 2.5), 0];
+  const lampCRotation = [0, toRadians(-startingAngle - 2.5 - 90), 0];
   const lampDPoint = getPointOnACircle(toRadians(-startingAngle - segmentThetaAngle + 2.5), innerRadius + 0.5, 0.10);
-  const lampDRotation = [0, toRadians(-startingAngle - segmentThetaAngle + 2.5), 0];
+  const lampDRotation = [0, toRadians(-startingAngle - segmentThetaAngle + 2.5 - 90), 0];
     
   shape.absarc(0, 0, outerRadius, toRadians(0 + offsetAngle - startingAngle + outerBevelOffsetAnle), toRadians(45 + offsetAngle - startingAngle - outerBevelOffsetAnle))
   shape.absarc(pointDBevel[0], pointDBevel[2], bevelOffset ,toRadians(270 - startingAngle), toRadians(0 - startingAngle), false);

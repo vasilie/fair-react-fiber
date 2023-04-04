@@ -10,7 +10,7 @@ function GridProvider({ children }) {
 
   const { gridSizeX, gridSizeY, gridSnapAngle, radius, maxRows, debugGrid, quadrantAngle } = useControls("Scene Generation", {
     gridSizeX: {value: 2.09, min: 1, max: 10 },
-    gridSizeY: {value: 4.7, min: 2, max: 15.35 },
+    gridSizeY: {value: 4.54, min: 2, max: 15.35, step: 0.01 },
     gridSnapAngle: {value: 45, min:30, max: 180, step: 15},
     radius: {value: 8.1, min:5, max: 20},
     maxRows: {value: 8, min: 1, max: 15, step: 1 },
@@ -25,6 +25,7 @@ function GridProvider({ children }) {
   const [gridPositions, setGridPositions] = useState([]);
   const [isSceneGenerated, setIsSceneGenerated] = useState(false);
   const [areQuadrantsGenerated, setQuadrantsGenerated] = useState(false);
+  const [rotateCamera, setRotateCamera] = useState(true);
   useEffect(()=> {
     let positions = generatePossibleGridPositions();
 
@@ -148,6 +149,7 @@ useEffect(()=> {
     assignPositionToItems,
     isSceneGenerated,
     setQuadrantsGenerated,
+    rotateCamera,
   }
 
   return (

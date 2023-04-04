@@ -76,9 +76,29 @@ export default function App() {
           {/* {cubes.map(cube => <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" {...cube} />)} */}
 
           <Suspense fallback={null}> 
-            <Landscape position={[0, 0, 0]} scale={2.9}/>
+            <Landscape position={[0, -0.04, 0]} scale={3.8}/>
             {/* <Stage adjustCamera={false} intensity={0.0000001} shadows="accumulative" > */}
-              
+            {/* Roads */}
+            <mesh
+            receiveShadow    
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, 0.02, 0]}
+            >
+              <ringGeometry
+                args={[radius, radius  + 37.6, 120 ,1, toRadians(-3) , toRadians(276)]}
+              />
+              <meshStandardMaterial roughness={0.8} metalness={1} color={"#f4f3f4"}></meshStandardMaterial>
+            </mesh>            <mesh
+            receiveShadow    
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, 0.02, 0]}
+            >
+              <ringGeometry
+                args={[radius, radius  + 2, 50 ,1, toRadians(-87) , toRadians(84)]}
+              />
+         
+              <meshStandardMaterial roughness={0.8} metalness={1} color={"#f4f3f4"}></meshStandardMaterial>
+            </mesh>
             <Grid />
                 {saoEnabled && <Scene cameraRef={shadowCameraRef}/>} 
             {/* </Stage> */}
@@ -180,7 +200,7 @@ export default function App() {
           <Windmil  position={[20, -0.1, 50]}  scale={2} rotation={[0, toRadians(225), 0]}/>
           <Windmil  position={[50, -0.1, 20]}  scale={2} rotation={[0, toRadians(225), 0]}/>
           {/* <Line color="purple" points={[[0,1,0], [gardenMovePosition[0],1,gardenMovePosition[2]]]}></Line> */}
-          <OrbitControls autoRotate maxDistance={50}autoRotateSpeed={0.05} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
+          
           {/* <color attach="background" args={['white']} /> */}
 
           <hemisphereLight color={hemisphereColor}  groundColor={hemisphereGroundColor} position={[-7, 25, 13]} intensity={0.5} />
@@ -200,7 +220,7 @@ export default function App() {
           <orthographicCamera ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
           </directionalLight>
           <Environment background preset={environmentPreset} blur={1}  />
-          
+          <OrbitControls autoRotate={true} maxDistance={50} autoRotateSpeed={0.05} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
           <Sky scale={1000} sunPosition={[10, 10, 30]} turbidity={0.1} />
         
         </Canvas>
@@ -223,7 +243,7 @@ function Scene({cameraRef}) {
     saoBlurDepthCutoff:{value: 0.65, min: 0, max:5 },
   });
   //useHelper(cameraRef, CameraHelper);
-  const {isSceneGenerated} = useContext(GridContext);
+  const {isSceneGenerated, rotateCamera} = useContext(GridContext);
   return (
     <>
         <Effects multisamping={8} renderIndex={10} disableGamma={false} disableRenderPass={false} disableRender={false}>

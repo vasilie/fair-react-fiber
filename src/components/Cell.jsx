@@ -57,7 +57,6 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
         angle={toDegrees(positionX * cellWidthInDegreesBasedOnRow + cellWidthInDegreesBasedOnRow)}
         sectorColor={sectorColor}
         rotation={[-Math.PI / 2, 0, 0]} /> */}
-
       </group>
     
 

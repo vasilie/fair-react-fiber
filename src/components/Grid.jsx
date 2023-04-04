@@ -1,41 +1,28 @@
 import PropTypes from "prop-types";
 
 import { useState, useEffect, useContext } from "react";
-import { Line, useGLTF, Instances, Html } from "@react-three/drei";
-import { useControls } from "leva";
+import { Line, useGLTF, Instances } from "@react-three/drei";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
 import { generateCurvedLinePoints, getRandomColor  } from "../lib/helpers/sceneGeneration";
 import Cell from "./Cell";
-import { dummyData } from "../lib/helpers/dummyData";
 import modelPath from "./models/expoBooth.glb";
-import Pavement from "./Pavement";
-import Quadrant from "./Quadrant";
+
 import { GridContext } from "../Contexts/GridContext";
 import Quadrants from "./Quadrants";
 import DefaultMaterial from "./materials/DefaultMaterial";
 
-const Grid = ({}) => {
+const Grid = () => {
   const {
     angle,
     gridSizeX,
     gridSizeY,
-    gridSnapAngle,
     radius,
     maxRows,
     debugGrid,
-    quadrantAngle,
     maxCells,
     circlePoints,
     gridPositions,
-    generatePossibleGridPositions,
-    getNextFreeGridPosition,
     getQuadrantPosition,
-    getCellsPerQuadrant,
-    checkIfInQuadrant,
-    quadrantStartingXPositionBasedOnRow,
-    assignPositionToItems,
-    isSceneGenerated,
-
   } = useContext(GridContext);
 
   const DebugAngleLines = () => {
