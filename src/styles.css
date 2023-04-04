@@ -38,9 +38,11 @@ canvas {
   position: relative;
   width: 100px;
   display: none;
+  
 }
 .content.active {
   display: block;
+  cursor: pointer;
 }
 
 .content::before {

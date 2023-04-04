@@ -119,7 +119,7 @@ useEffect(()=> {
       if (i === items.length - 1){
         let remainingEmptyCells =  getCellsPerQuadrant(lastAssignedPosition) - lastAssignedPosition[0];
         console.log("Remaining cells", remainingEmptyCells);
-        for (let x = 0; x < remainingEmptyCells; x++) {
+        for (let x = 0; x < remainingEmptyCells + 1; x++) {
           gridPositions[lastAssignedPosition[1]][lastAssignedPosition[0] + x + quadrantStartingXPositionBasedOnRow(currentQuadrant, lastAssignedPosition[1])] = {sectorId, falseBuilding: true, sectorColor};
         }
       }

@@ -39,8 +39,8 @@ export const dummyData = [
         ]
       }, 
       {
-        id: "yugodrvo",
-        label: "Yugodrvo",
+        id: "agro-sume",
+        label: "Agro Šume",
         items: [
           {
             label: "Specijalista za šume"
@@ -57,8 +57,8 @@ export const dummyData = [
         ]
       },
       {
-        id: "jabuka",
-        label: "Jabuka",
+        id: "sumarski-fakultet",
+        label: "Šumarski fakultet",
         items: [
           {
             label: "Drvoseča"
@@ -75,8 +75,8 @@ export const dummyData = [
         ]
       },
       {
-        id: "optimum",
-        label: "Optimum",
+        id: "agro-sume",
+        label: "Agro Šume",
         items: [
           {
             label: "Specijalista za šume"
@@ -93,78 +93,8 @@ export const dummyData = [
         ]
       },
       {
-        id: "gorani",
-        label: "Gorani",
-        items: [
-          {
-            label: "Drvoseča"
-          },
-          {
-            label: "Šumar"
-          },
-          {
-            label: "Botaničar"
-          },
-          {
-            label: "Specijalista za drvo"
-          },
-        ]
-      },
-      {
-        id: "topola",
-        label: "Topola D.O.O.",
-        items: [
-          {
-            label: "Specijalista za šume"
-          },
-          {
-            label: "Amater šumarstva"
-          },
-          {
-            label: "Majstor za badnjak"
-          },
-          {
-            label: "Kralj tartufa"
-          },
-        ]
-      },      {
-        id: "breza",
-        label: "Breza",
-        items: [
-          {
-            label: "Drvoseča"
-          },
-          {
-            label: "Šumar"
-          },
-          {
-            label: "Botaničar"
-          },
-          {
-            label: "Specijalista za drvo"
-          },
-        ]
-      },
-      {
-        id: "fzd",
-        label: "Fakultet za drvo",
-        items: [
-          {
-            label: "Specijalista za šume"
-          },
-          {
-            label: "Amater šumarstva"
-          },
-          {
-            label: "Majstor za badnjak"
-          },
-          {
-            label: "Kralj tartufa"
-          },
-        ]
-      },      {
-        id: "testera",
-        label: "Testera D.O.O.",
+        id: "sumarski-fakultet",
+        label: "Šumarski fakultet",
         items: [
           {
             label: "Drvoseča"
@@ -180,8 +110,8 @@ export const dummyData = [
           },
         ]
       }, {
-        id: "ikea",
-        label: "Ikea",
+        id: "agro-sume",
+        label: "Agro Šume",
         items: [
           {
             label: "Specijalista za šume"
@@ -197,8 +127,8 @@ export const dummyData = [
           },
         ]
       },      {
-        id: "jablan",
-        label: "Jablan",
+        id: "sumarski-fakultet",
+        label: "Šumarski fakultet",
         items: [
           {
             label: "Drvoseča"
@@ -214,8 +144,8 @@ export const dummyData = [
           },
         ]
       }, {
-        id: "stovariste-savic",
-        label: "Stovarište Savić",
+        id: "agro-sume",
+        label: "Agro Šume",
         items: [
           {
             label: "Specijalista za šume"
@@ -231,8 +161,8 @@ export const dummyData = [
           },
         ]
       },      {
-        id: "imlek",
-        label: "Imlek",
+        id: "sumarski-fakultet",
+        label: "Šumarski fakultet",
         items: [
           {
             label: "Drvoseča"
@@ -248,8 +178,8 @@ export const dummyData = [
           },
         ]
       }, {
-        id: "kajmak",
-        label: "Obrenovački kajmak",
+        id: "agro-sume",
+        label: "Agro Šume",
         items: [
           {
             label: "Specijalista za šume"
@@ -265,8 +195,8 @@ export const dummyData = [
           },
         ]
       },      {
-        id: "breskve",
-        label: "Banatske breskve",
+        id: "sumarski-fakultet",
+        label: "Šumarski fakultet",
         items: [
           {
             label: "Drvoseča"
@@ -281,10 +211,9 @@ export const dummyData = [
             label: "Specijalista za drvo"
           },
         ]
-      }, 
-      {
-        id: "ljutaosa",
-        label: "Ljuta Osa",
+      }, {
+        id: "agro-sume",
+        label: "Agro Šume",
         items: [
           {
             label: "Specijalista za šume"
@@ -300,8 +229,76 @@ export const dummyData = [
           },
         ]
       },      {
-        id: "med",
-        label: "Med i mleko D.O.O.",
+        id: "sumarski-fakultet",
+        label: "Šumarski fakultet",
+        items: [
+          {
+            label: "Drvoseča"
+          },
+          {
+            label: "Šumar"
+          },
+          {
+            label: "Botaničar"
+          },
+          {
+            label: "Specijalista za drvo"
+          },
+        ]
+      }, {
+        id: "agro-sume",
+        label: "Agro Šume",
+        items: [
+          {
+            label: "Specijalista za šume"
+          },
+          {
+            label: "Amater šumarstva"
+          },
+          {
+            label: "Majstor za badnjak"
+          },
+          {
+            label: "Kralj tartufa"
+          },
+        ]
+      },      {
+        id: "sumarski-fakultet",
+        label: "Šumarski fakultet",
+        items: [
+          {
+            label: "Drvoseča"
+          },
+          {
+            label: "Šumar"
+          },
+          {
+            label: "Botaničar"
+          },
+          {
+            label: "Specijalista za drvo"
+          },
+        ]
+      }, {
+        id: "agro-sume",
+        label: "Agro Šume",
+        items: [
+          {
+            label: "Specijalista za šume"
+          },
+          {
+            label: "Amater šumarstva"
+          },
+          {
+            label: "Majstor za badnjak"
+          },
+          {
+            label: "Kralj tartufa"
+          },
+        ]
+      },      {
+        id: "sumarski-fakultet",
+        label: "Šumarski fakultet",
         items: [
           {
             label: "Drvoseča"
@@ -359,33 +356,15 @@ export const dummyData = [
           },
         ]
       },
-      {
-        id: "google",
-        label: "Google",
-        items: [
-          {
-            label: "Frontend dev"
-          },
-          {
-            label: "Backend dev"
-          },
-          {
-            label: "Dizajner"
-          },
-          {
-            label: "Project manager"
-          },
-        ]
-      },
     ]
   },
   {
-    id: "preradjivanje",
+    id: "Прерађивачка индустрија",
     label: "Прерађивачка индустрија",
     items: [
       {
-        id: "drvno-preradjivacko",
-        label: "Drvno preradjivačko",
+        id: "act-digital",
+        label: "Act digital",
         items: [
           {
             label: "Frontend dev"
@@ -400,13 +379,12 @@ export const dummyData = [
             label: "Project manager"
           },
         ]
-      }, 
-      {
-        id: "carnex",
-        label: "Carnex",
+      },      {
+        id: "diwanee",
+        label: "Diwanee",
         items: [
           {
-            label: "Specijalista za pastete"
+            label: "Frontend dev"
           },
           {
             label: "Backend dev"
@@ -426,8 +404,8 @@ export const dummyData = [
     label: "Образовање",
     items: [
       {
-        id: "Nolit",
-        label: "Nolit",
+        id: "Образовање",
+        label: "Образовање",
         items: [
           {
             label: "Motač klupka"
@@ -447,8 +425,8 @@ export const dummyData = [
         ]
       },
       {
-        id: "gimnazija",
-        label: "Gimnazija Mladenovac",
+        id: "Образовање-bez-granica",
+        label: "Саобраћај и складиштење",
         items: [
           {
             label: "Papir kamen makaze"

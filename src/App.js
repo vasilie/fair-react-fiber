@@ -35,6 +35,8 @@ export default function App() {
   hemisphereColor.setHSL( 0.6, 1, 0.6 ); 
   hemisphereGroundColor.setHSL( 0.095, 1, 0.75 ); 
   const [envPreset, setPreset] = useState('sunset');
+  const [autoRotateSpeed, setAutoRotateSpeed] = useState(0.05);
+
   // const { sectorAngle } =  useControls({sectorAngle: { value: 0, min: 0, max: 360}});
   const { ambientColor, ambientIntensity, saoEnabled, dirColor, dirIntensity, environmentPreset } = useControls({
     "SAO Pass": folder({
@@ -68,22 +70,14 @@ export default function App() {
     <div className="main">
       <GridProvider>
         <Canvas  shadows camera={{ position: [0, 13, -25], fov: 80, }} >
-          {/* <Grid renderOrder={-1} sectionColor={[0.51, 0.51, 0.41, 0.1]} opacity={0.1} position={[0, 0.01, 0]} infiniteGrid/> */}
-    
-          
-          {/* <Box renderOrder={0} castShadow clickable size={[2, 2, 2]}  position={[0, 1, 0]} color="#E8E8EB" roughness={0.1} metalness={0.9}/> */}
-          {/* <Box size={[350, 0, 350]} metalness={0.7}  roughness={0.7} rotation={[ Math.PI, 0 , 0]} position={[0, 0, 0]} color="white" /> */}
-          {/* {cubes.map(cube => <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" {...cube} />)} */}
-
           <Suspense fallback={null}> 
             <Landscape position={[0, -0.04, 0]} scale={3.8}/>
-            {/* <Stage adjustCamera={false} intensity={0.0000001} shadows="accumulative" > */}
             {/* Roads */}
             <mesh
-            receiveShadow    
-            rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, 0.02, 0]}
-            >
+              receiveShadow    
+              rotation={[-Math.PI / 2, 0, 0]}
+              position={[0, 0.02, 0]}
+              >
               <ringGeometry
                 args={[radius, radius  + 37.6, 120 ,1, toRadians(-3) , toRadians(276)]}
               />
@@ -220,7 +214,7 @@ export default function App() {
           <orthographicCamera ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
           </directionalLight>
           <Environment background preset={environmentPreset} blur={1}  />
-          <OrbitControls autoRotate={true} maxDistance={50} autoRotateSpeed={0.05} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
+          <OrbitControls autoRotate={true} maxDistance={50} autoRotateSpeed={autoRotateSpeed} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
           <Sky scale={1000} sunPosition={[10, 10, 30]} turbidity={0.1} />
         
         </Canvas>
