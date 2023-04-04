@@ -35,7 +35,7 @@ export default function MainScene() {
   hemisphereColor.setHSL( 0.6, 1, 0.6 ); 
   hemisphereGroundColor.setHSL( 0.095, 1, 0.75 ); 
   const [envPreset, setPreset] = useState('sunset');
-  const [autoRotateSpeed, setAutoRotateSpeed] = useState(0.05);
+  const [autoRotateSpeed, setAutoRotateSpeed] = useState(0);
   // const { sectorAngle } =  useControls({sectorAngle: { value: 0, min: 0, max: 360}});
   const { isSomethingHovered } = useContext(GridContext);
 
