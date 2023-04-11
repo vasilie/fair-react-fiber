@@ -20,4 +20,4 @@ export function ExpoBooth(props) {
   );
 }
 
-useGLTF.preload("/ExpoBooth.glb");
+useGLTF.preload(modelPath);

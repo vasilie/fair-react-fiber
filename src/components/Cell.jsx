@@ -5,7 +5,6 @@ import { getPointOnACircle, toDegrees, toRadians, getQuadrantFromAngle, getAngle
 import Box from "./Box";
 import { useControls } from "leva";
 import Sector from "./Sector";
-import { ExpoBooth } from "./models/ExpoBooth";
 import { ExpoBooth2 } from "./models/ExpoBooth2";
 import { getQuadrantPosition } from "../lib/helpers/sceneGeneration";
 import Pavement from "./Pavement";

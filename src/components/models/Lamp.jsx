@@ -1,7 +1,7 @@
 
 import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
-import modelPath from "./StreetLight_02.glb";
+import modelPath from "./blender/streetLight.glb";
 import DefaultMaterial from "../materials/DefaultMaterial";
 export function Lamp(props) {
   const { nodes, materials } = useGLTF(modelPath);
@@ -27,4 +27,4 @@ export function Lamp(props) {
   );
 }
 
-useGLTF.preload("/StreetLight_02.glb");
+useGLTF.preload(modelPath);

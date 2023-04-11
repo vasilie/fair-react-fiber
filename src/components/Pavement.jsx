@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import * as THREE from 'three';
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians } from '../lib/helpers/math';
-import { Line, ContactShadows } from "@react-three/drei";
+import { Line } from "@react-three/drei";
 import { useContext } from "react";
 import { Lamp } from "./models/Lamp";
 import { GridContext } from "../Contexts/GridContext";

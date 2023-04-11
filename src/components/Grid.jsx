@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { useState, useEffect, useContext } from "react";
 import { Line, useGLTF, Instances } from "@react-three/drei";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
-import { generateCurvedLinePoints, getRandomColor  } from "../lib/helpers/sceneGeneration";
+import { generateCurvedLinePoints } from "../lib/helpers/sceneGeneration";
 import Cell from "./Cell";
-import modelPath from "./models/expoBooth.glb";
+import modelPath from "./models/blender/expoBooth.glb";
 
 import { GridContext } from "../Contexts/GridContext";
 import Quadrants from "./Quadrants";
@@ -107,4 +107,4 @@ Grid.propTypes = {
 
 export default Grid;
 
-useGLTF.preload("/ExpoBooth.glb");
+useGLTF.preload("./models/blender/ExpoBooth.glb");
