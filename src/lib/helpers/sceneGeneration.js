@@ -91,23 +91,23 @@ export const checkIfInQuadrant = (quadrant, position, radius, gridSizeX, gridSiz
 
 export const assignPositionToItems = (items, gridPositions, radius, gridSizeX, gridSizeY, quadrantAngle, maxRows) => {
   const startingPosition = getNextFreeGridPosition(gridPositions);
-  console.log("startingPosition",startingPosition);
+  // console.log("startingPosition",startingPosition);
   let currentRow = startingPosition[1];
   let currentQuadrant = getQuadrantPosition(startingPosition, radius, gridSizeX, gridSizeY, quadrantAngle );
-   console.log("currentQuadrant",currentQuadrant);
+  //  console.log("currentQuadrant",currentQuadrant);
   for (let i = 0; i < items.length; i++) {
     for (let row = currentRow; i < maxRows; row++){
       let itemAssigned = false;
       for (let x = 0; x < gridPositions[row].length; x++) {
         if (gridPositions[row][x + startingPosition[0]] === null) {
           if (checkIfInQuadrant(currentQuadrant, [x + startingPosition[0], startingPosition[1] + row], radius, gridSizeX, gridSizeY, quadrantAngle )){
-            console.log(`[${[x + startingPosition[0], row]}] in quadrant`);
-            console.log("placing",[x + startingPosition[0], row] )
+            // console.log(`[${[x + startingPosition[0], row]}] in quadrant`);
+            // console.log("placing",[x + startingPosition[0], row] )
             gridPositions[row][x + startingPosition[0]] = {...items[i], position: [startingPosition[0], row]};
             itemAssigned = true;
           } else {
-            console.log(`[${[x + startingPosition[0], row]}] not in quadrant`);
-            console.log("Tried", [x + startingPosition[0], row] );
+            // console.log(`[${[x + startingPosition[0], row]}] not in quadrant`);
+            // console.log("Tried", [x + startingPosition[0], row] );
           }
           break;
         }

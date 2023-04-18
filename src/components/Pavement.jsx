@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import * as THREE from 'three';
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians } from '../lib/helpers/math';
 import { Line } from "@react-three/drei";
-import { useContext } from "react";
+import { useContext, memo } from "react";
 import { Lamp } from "./models/Lamp";
 import { GridContext } from "../Contexts/GridContext";
 import DefaultMaterial from "./materials/DefaultMaterial";
 
-const Pavement = (props) => {
+const Pavement = memo(function Pavement(props) {
   const {startingAngle, segmentThetaAngle, radius} = props;
   
   const { gridSizeY, debugGrid } = useContext(GridContext);
@@ -67,7 +67,6 @@ const Pavement = (props) => {
   shape.absarc(pointBBevel[0], pointBBevel[2], bevelOffset ,toRadians(45 - startingAngle), toRadians(135 - startingAngle), false);
   shape.absarc(pointCBevel[0], pointCBevel[2], bevelOffset ,toRadians(135 - startingAngle), toRadians(225 - startingAngle), false);
 
-
   return (
     <>
       <mesh
@@ -86,7 +85,7 @@ const Pavement = (props) => {
       <Lamp position={lampDPoint} scale={16} rotation={lampDRotation}/>
     </>
   );
-}
+});
 
 Pavement.defaultProps = {
   startingAngle: 0,

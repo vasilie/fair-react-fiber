@@ -18,6 +18,7 @@ function GridProvider({ children }) {
     quadrantAngle: { value: 45 },
   }, {collapsed: true, order: 10});
 
+
   const angle = -Math.abs(getAngleFromLengthAndRadius(gridSizeX, radius, quadrantAngle));
   const radiusLength = 2 * Math.PI * radius;
   const maxCells = Math.floor(radiusLength / gridSizeX);
@@ -27,6 +28,7 @@ function GridProvider({ children }) {
   const [areQuadrantsGenerated, setQuadrantsGenerated] = useState(false);
   const [rotateCamera, setRotateCamera] = useState(true);
   const [isSomethingHovered, setSomethingHovered] = useState(false);
+  
   useEffect(()=> {
     let positions = generatePossibleGridPositions();
 
@@ -35,7 +37,6 @@ function GridProvider({ children }) {
       let sectorColor = getRandomColor();
       newPositions = assignPositionToItems(dummyData[i].items, newPositions, dummyData[i].id, dummyData[i].label);
     }
-
     setGridPositions(positions);
   }, [gridSizeX])
 
@@ -45,7 +46,15 @@ useEffect(()=> {
   }
 }, [gridPositions, areQuadrantsGenerated]);
 
+const [clickedPosition, setClickedPosition] = useState(null);
+
+const handleBuildingClick = (position) => {
+    setClickedPosition(position);
+    console.log("Clicked", position);
+}
+
  const generatePossibleGridPositions = () => {
+    console.log("Generating Possible Grid Positions");
     let gridPositions = [];
     for (let i = 0; i < maxRows; i++) {
       gridPositions[i] = [];
@@ -100,14 +109,14 @@ useEffect(()=> {
         for (let x = 0; x < gridPositions[row].length; x++) {
           if (gridPositions[row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] === null) {
             if (checkIfInQuadrant(currentQuadrant, [x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row])){
-              console.log(`[${[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row]}] in quadrant`);
-              console.log("placing",[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row] )
+              // console.log(`[${[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row]}] in quadrant`);
+              // console.log("placing",[x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row), row] )
               lastAssignedPosition = [x, row];
               gridPositions[row][x + quadrantStartingXPositionBasedOnRow(currentQuadrant, row)] = {...items[i], sectorId, sectorColor};
               itemAssigned = true;
             } else {
-              console.log(`[${[x + startingPosition[0], row]}] not in quadrant ${currentQuadrant}`);
-              console.log("Tried", [x + startingPosition[0], row] );
+              // console.log(`[${[x + startingPosition[0], row]}] not in quadrant ${currentQuadrant}`);
+              // console.log("Tried", [x + startingPosition[0], row] );
             }
             break;
           }
@@ -119,7 +128,7 @@ useEffect(()=> {
       // Check if there is more space until the end of row in qurrent quadrant
       if (i === items.length){
         let remainingEmptyCells =  getCellsPerQuadrant(lastAssignedPosition) - lastAssignedPosition[0];
-        console.log("Remaining cells", remainingEmptyCells);
+        // console.log("Remaining cells", remainingEmptyCells);
         for (let x = 0; x < remainingEmptyCells; x++) {
           gridPositions[lastAssignedPosition[1]][lastAssignedPosition[0] + x + quadrantStartingXPositionBasedOnRow(currentQuadrant, lastAssignedPosition[1])] = {sectorId, falseBuilding: true, sectorColor};
         }
@@ -152,7 +161,9 @@ useEffect(()=> {
     setQuadrantsGenerated,
     rotateCamera,
     isSomethingHovered,
-    setSomethingHovered
+    setSomethingHovered,
+    handleBuildingClick,
+    clickedPosition,
   }
 
   return (

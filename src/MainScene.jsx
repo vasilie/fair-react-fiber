@@ -1,6 +1,7 @@
-import { Suspense, useRef } from "react";
-import { Canvas, extend } from '@react-three/fiber'
-import { OrbitControls, Environment, Sky } from '@react-three/drei'
+import { Suspense, useRef, useState, useEffect, useContext, memo } from "react";
+import { Canvas, extend, useThree, useFrame } from '@react-three/fiber'
+import { OrbitControls, Environment, Sky, Text, Box, PerspectiveCamera } from '@react-three/drei'
+import { useSpring, animated } from "@react-spring/three";
 import './index.css';
 import { Dome } from "./components/models/Dome";
 import "./styles.css"
@@ -13,14 +14,18 @@ import { Landscape } from "./components/models/Landscape";
 import { Windmil } from "./components/models/Windmill";
 import Garden from "./components/Garden";
 import PostProcessing from "./components/PostProcessing";
+import Quadrants from "./components/Quadrants";
+import GridScene from "./components/GridScene";
+import { GridContext } from "./Contexts/GridContext";
 
 extend({ SAOPass });
 
-export default function MainScene() {
+const MainScene = memo(function MainScene(){
   const hemisphereColor = new THREE.Color();
   const hemisphereGroundColor = new THREE.Color();
   hemisphereColor.setHSL( 0.6, 1, 0.6 ); 
   hemisphereGroundColor.setHSL( 0.095, 1, 0.75 ); 
+
 
   const { ambientColor, ambientIntensity, saoEnabled, dirColor, dirIntensity, environmentPreset } = useControls({
     "SAO Pass": folder({
@@ -40,10 +45,30 @@ export default function MainScene() {
 
   const shadowCameraRef = useRef();
   const radius = 8.1;
+  const orbitControlsCameraRef = useRef();
+  const orbitControlsRef = useRef();
+
+  // const getNewCameraPosition = (clickedBuildingPosition) => {
+  //   const distance = 5; // Change this value according to your desired camera distance from the building
+  //   const offset = new THREE.Vector3(0, distance, distance);
+  //   return clickedBuildingPosition;
+  // }
+
+  // const cameraSpring = useSpring({
+  //   position: clickedBuildingPosition
+  //     ? getNewCameraPosition(clickedBuildingPosition)
+  //     : [0, 0, 0], // Default camera position
+  //   target: clickedBuildingPosition
+  //     ? clickedBuildingPosition
+  //     : [0, 0, 0], // Default camera target
+  //   config: { mass: 1, tension: 170, friction: 50 },
+  // });
+
 
   return (
     <Canvas shadows camera={{ position: [0, 13, -25], fov: 80, }} >
-      <Suspense fallback={null}> 
+      
+      <Quadrants />
         <Landscape position={[0, -0.04, 0]} scale={3.8}/>
         {/* Roads */}
         <mesh
@@ -66,7 +91,9 @@ export default function MainScene() {
           />
           <meshStandardMaterial roughness={0.8} metalness={1} color={"#f4f3f4"}></meshStandardMaterial>
         </mesh>
-        <Grid />
+        <Suspense fallback={null}> 
+        <GridScene />
+        {/* <Grid handleBuildingClick={handleBuildingClick} /> */}
         {saoEnabled && <PostProcessing cameraRef={shadowCameraRef}/>} 
         <Dome position={[0,0.07,0]} scale={7}></Dome>
         <Garden />
@@ -90,9 +117,48 @@ export default function MainScene() {
       <orthographicCamera ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
       </directionalLight>
       <Environment background preset={environmentPreset} blur={1}  />
-      <OrbitControls autoRotate={true} maxDistance={50} autoRotateSpeed={0} makeDefault polarAngle={3 * Math.PI /13} minPolarAngle={Math.PI  / 12} maxPolarAngle={Math.PI / 2.01}  />
+      
+      <Controls />
       <Sky scale={1000} sunPosition={[10, 10, 30]} turbidity={0.1} />
     </Canvas>
   )
+});
+
+function Controls() {
+  const { gl, camera } = useThree();
+  const { clickedPosition } = useContext(GridContext);
+
+  const [springs, api] = useSpring(
+    () => ({
+      scale: 1,
+      position: clickedPosition ? [0, 10, 0] : [0, 13, -25],
+      target: clickedPosition ? clickedPosition : [0, 0, 0],
+      color: '#ff6d6d',
+    }),
+    [clickedPosition]
+  )
+  const AnimatedBox = animated(Box);
+  const AnimatedCamera = animated(PerspectiveCamera);
+  const AnimatedOrbitControls = animated(OrbitControls);
+  return (
+    <>
+    <AnimatedCamera fov={80} makeDefault position={springs.position.to((x, y, z) => [x, y, z])} />
+    <AnimatedBox material-color="red" position={springs.target.to((x, y, z) => [x, y, z])} />
+      <AnimatedOrbitControls
+      enableDamping
+      dampingFactor={0.1}
+      rotateSpeed={0.5}
+      args={[camera, gl.domElement]}
+      autoRotate={true}
+      maxDistance={50}
+      autoRotateSpeed={0}
+      target={springs.target.to((x, y, z) => [x, y, z])}
+      makeDefault
+      polarAngle={3 * Math.PI /13}
+      minPolarAngle={Math.PI  / 12}
+      maxPolarAngle={Math.PI / 2.01}  />
+    </>
+  )
 }
 
+export default MainScene;

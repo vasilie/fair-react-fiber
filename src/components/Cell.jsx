@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState, Suspense } from "react";
+import { useState, Suspense, useContext } from "react";
 import { Line, Billboard, Text, Html } from "@react-three/drei"
 import { getPointOnACircle, toDegrees, toRadians, getQuadrantFromAngle, getAngleFromLengthAndRadius } from "../lib/helpers/math";
 import Box from "./Box";
@@ -10,11 +10,12 @@ import { getQuadrantPosition } from "../lib/helpers/sceneGeneration";
 import Pavement from "./Pavement";
 
 import { Vector3 } from "three";
+import { GridContext } from "../Contexts/GridContext";
 
 const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedOnRow, sectorId, sectorColor, quadrant, label}) => {
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
-
+  const { handleBuildingClick } = useContext(GridContext);
   //Note points need to be pulled with quadrantDistanceToMove aswell 
   const pointA = getPointOnACircle(positionX * cellWidthInDegreesBasedOnRow, radius, 0.1 );
   const pointB = getPointOnACircle(positionX * cellWidthInDegreesBasedOnRow + cellWidthInDegreesBasedOnRow, radius , 0.1 );
@@ -60,7 +61,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
     
 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
-      <ExpoBooth2 label={label} sectorId={sectorId} scale={14} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
+      <ExpoBooth2 onClick={() => handleBuildingClick(childPositionPulledBack)} label={label} sectorId={sectorId} scale={14} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
       {/* <Pavement  position={[0, 0.1, 0]} rotation={[toRadians(90), toRadians(0),toRadians(0)]}/> */}
     </>
   )

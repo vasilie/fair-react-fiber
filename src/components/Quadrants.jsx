@@ -1,20 +1,20 @@
 import Pavement from "./Pavement";
 import { toRadians } from "../lib/helpers/math";
 import Quadrant from "./Quadrant";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, memo } from "react";
 import { GridContext } from "../Contexts/GridContext";
 import { getPointOnACircle } from "../lib/helpers/math";
 
 
-const Quadrants = () => {
+const Quadrants = memo(function Quadrants() {
   
-  const { quadrantAngle, radius, setQuadrantsGenerated } = useContext(GridContext);
+  const { quadrantAngle, radius, quadrantsGenerated, setQuadrantsGenerated } = useContext(GridContext);
   const [quadrants, setQuadrants] = useState([]);
   
   const generateQuadrants = () => {
     const quadrantsLength = 270 / quadrantAngle;
     let _quadrants = [];
-
+    console.log("Generating quadrants");
     for (let i = 0; i < quadrantsLength; i++) {
       const quadrantRowZeroMiddlePosition = getPointOnACircle(toRadians(- 45 * i - 22.5), radius, 0.1);
       const quadrantMovePosition = getPointOnACircle(toRadians(- 45 * i - 22.5), radius + 1.3, 0.1);
@@ -31,8 +31,10 @@ const Quadrants = () => {
   }
 
   useEffect(()=>{
-    generateQuadrants();
-    setQuadrants(generateQuadrants());
+    if (!quadrantsGenerated) {
+      setQuadrants(generateQuadrants());
+    }
+    
   },[]);
 
   return (
@@ -40,7 +42,7 @@ const Quadrants = () => {
       {quadrants.map(quadrant => <Quadrant {...quadrant}></Quadrant>)}
     </group>
   );
-}
+});
 
 
 Quadrants.propTypes = {

@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "http://vasilie.github.io/fair-react-fiber",
   "dependencies": {
+    "@react-spring/three": "^9.7.2",
     "@react-three/drei": "^9.56.18",
     "@react-three/fiber": "^8.11.0",
     "@react-three/postprocessing": "^2.7.1",
@@ -16,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-spring": "^9.7.1",
     "three": "^0.149.0",
     "web-vitals": "^2.1.4"
   },
