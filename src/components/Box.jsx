@@ -23,12 +23,12 @@ function Box(props) {
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}>
       <boxGeometry args={size} />
-      <Html >
+      {/* <Html >
         <div class="content">
           hello <br />
           world
         </div>
-      </Html>
+      </Html> */}
       <meshStandardMaterial metalness={metalness} roughness={roughness} color={(props.clickable && hovered)? "#E0167E" : props.color} />
     </mesh>
   )

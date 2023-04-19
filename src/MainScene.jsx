@@ -1,6 +1,6 @@
 import { Suspense, useRef, useState, useEffect, useContext, memo } from "react";
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber'
-import { OrbitControls, Environment, Sky, Text, Box, PerspectiveCamera } from '@react-three/drei'
+import { OrbitControls, Environment, Sky, Text, Box, PerspectiveCamera, Html } from '@react-three/drei'
 import { useSpring, animated } from "@react-spring/three";
 import './index.css';
 import { Dome } from "./components/models/Dome";
@@ -17,6 +17,7 @@ import PostProcessing from "./components/PostProcessing";
 import Quadrants from "./components/Quadrants";
 import GridScene from "./components/GridScene";
 import { GridContext } from "./Contexts/GridContext";
+import { PREVIEW_STATES } from "./lib/consts/states";
 
 extend({ SAOPass });
 
@@ -68,7 +69,7 @@ const MainScene = memo(function MainScene(){
   return (
     <Canvas shadows camera={{ position: [0, 13, -25], fov: 80, }} >
       
-      <Quadrants />
+        <Quadrants />
         <Landscape position={[0, -0.04, 0]} scale={3.8}/>
         {/* Roads */}
         <mesh
@@ -117,7 +118,6 @@ const MainScene = memo(function MainScene(){
       <orthographicCamera ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
       </directionalLight>
       <Environment background preset={environmentPreset} blur={1}  />
-      
       <Controls />
       <Sky scale={1000} sunPosition={[10, 10, 30]} turbidity={0.1} />
     </Canvas>
@@ -126,24 +126,39 @@ const MainScene = memo(function MainScene(){
 
 function Controls() {
   const { gl, camera } = useThree();
-  const { clickedPosition } = useContext(GridContext);
-
+  const animatedCameraRef = useRef();
+  const { clickedPosition, cameraPosition, previewState, setPreviewState } = useContext(GridContext);
+  const isDomePreview = previewState === PREVIEW_STATES.DOME;
+  console.log(camera.position.x);
   const [springs, api] = useSpring(
     () => ({
-      scale: 1,
-      position: clickedPosition ? [0, 10, 0] : [0, 13, -25],
-      target: clickedPosition ? clickedPosition : [0, 0, 0],
-      color: '#ff6d6d',
+      from: {
+        position: [camera.position.x, camera.position.y, camera.position.z],
+      },
+      to: {
+        position: isDomePreview ? [0, 13, -25] : cameraPosition,
+        target: isDomePreview ? [0, 0, 0] : clickedPosition,
+      },
+      config: {
+        mass: 1, 
+        tension: 100, 
+        friction: 20,
+        precision: 0.001,
+      },
+      reset: true,
     }),
-    [clickedPosition]
-  )
+    [previewState]
+  );
+
+  
   const AnimatedBox = animated(Box);
   const AnimatedCamera = animated(PerspectiveCamera);
   const AnimatedOrbitControls = animated(OrbitControls);
   return (
     <>
-    <AnimatedCamera fov={80} makeDefault position={springs.position.to((x, y, z) => [x, y, z])} />
-    <AnimatedBox material-color="red" position={springs.target.to((x, y, z) => [x, y, z])} />
+    
+    {/* <AnimatedBox material-color="red" position={springs.target.to((x, y, z) => [x, y, z])} /> */}
+    <AnimatedCamera ref={animatedCameraRef} fov={80} makeDefault position={springs.position} />
       <AnimatedOrbitControls
       enableDamping
       dampingFactor={0.1}
@@ -154,10 +169,14 @@ function Controls() {
       autoRotateSpeed={0}
       target={springs.target.to((x, y, z) => [x, y, z])}
       makeDefault
-      polarAngle={3 * Math.PI /13}
+      enableRotate={isDomePreview}
+      enablePan={isDomePreview}
+      polarAngle={3 * Math.PI /13 }
       minPolarAngle={Math.PI  / 12}
-      maxPolarAngle={Math.PI / 2.01}  />
+      maxPolarAngle={isDomePreview ? Math.PI / 2.01 : Math.PI }  />
+      
     </>
+    
   )
 }
 

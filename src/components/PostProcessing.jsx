@@ -7,7 +7,7 @@ function PostProcessing() {
   const {saoBias, saoIntensity, saoScale, saoKernelRadius, saoMinResolution, saoBlur, saoBlurRadius, saoBlurStdDev, saoBlurDepthCutoff } = useControls("SAO Pass",{
     saoBias: {value: 0.06, min: 0, max: 2 },
     saoIntensity: {value: 0.02, min: 0, max: 2 },
-    saoScale: {value: 100, min: 0, max:100 },
+    saoScale: {value: 200, min: 0, max: 300 },
     saoKernelRadius: {value: 27, min: 0, max:100 },
     saoMinResolution: {value: 0.00001, min: 0, max:2 },
     saoBlur: true,

@@ -3,6 +3,7 @@ import { useControls } from "leva";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
 import { generateCurvedLinePoints, getRandomColor } from "../lib/helpers/sceneGeneration";
 import { dummyData } from "../lib/helpers/dummyData";
+import { PREVIEW_STATES } from "../lib/consts/states";
 
 export const GridContext = createContext();
 
@@ -28,6 +29,7 @@ function GridProvider({ children }) {
   const [areQuadrantsGenerated, setQuadrantsGenerated] = useState(false);
   const [rotateCamera, setRotateCamera] = useState(true);
   const [isSomethingHovered, setSomethingHovered] = useState(false);
+  const [previewState, setPreviewState] = useState(PREVIEW_STATES.DOME);
   
   useEffect(()=> {
     let positions = generatePossibleGridPositions();
@@ -47,8 +49,9 @@ useEffect(()=> {
 }, [gridPositions, areQuadrantsGenerated]);
 
 const [clickedPosition, setClickedPosition] = useState(null);
+const [cameraPosition, setCameraPosition] = useState(null);
 
-const handleBuildingClick = (position) => {
+const setCameraClickedPosition = (position) => {
     setClickedPosition(position);
     console.log("Clicked", position);
 }
@@ -162,8 +165,12 @@ const handleBuildingClick = (position) => {
     rotateCamera,
     isSomethingHovered,
     setSomethingHovered,
-    handleBuildingClick,
+    setCameraClickedPosition,
     clickedPosition,
+    previewState,
+    setPreviewState,
+    cameraPosition,
+    setCameraPosition,
   }
 
   return (

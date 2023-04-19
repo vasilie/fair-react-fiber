@@ -5,7 +5,7 @@ import { useContext, memo, useEffect, useState, useMemo } from "react";
 import { GridContext } from "../Contexts/GridContext";
 import Pavement from "./Pavement";
 
-const Quadrant =({startingAngle, pullbackPosition }) => {
+const Quadrant = ({startingAngle, pullbackPosition }) => {
   const { quadrantAngle, radius, maxRows, gridSizeY, debugGrid } = useContext(GridContext);
  
   const generatePavements = () => {
@@ -43,4 +43,4 @@ Quadrant.defaultProps = {
 
 };
 
-export default Quadrant;
+export default memo(Quadrant);

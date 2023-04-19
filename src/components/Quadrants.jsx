@@ -6,9 +6,9 @@ import { GridContext } from "../Contexts/GridContext";
 import { getPointOnACircle } from "../lib/helpers/math";
 
 
-const Quadrants = memo(function Quadrants() {
+const Quadrants = () => {
   
-  const { quadrantAngle, radius, quadrantsGenerated, setQuadrantsGenerated } = useContext(GridContext);
+  const { quadrantAngle, radius, setQuadrantsGenerated } = useContext(GridContext);
   const [quadrants, setQuadrants] = useState([]);
   
   const generateQuadrants = () => {
@@ -30,19 +30,18 @@ const Quadrants = memo(function Quadrants() {
    return _quadrants;
   }
 
+  
   useEffect(()=>{
-    if (!quadrantsGenerated) {
-      setQuadrants(generateQuadrants());
-    }
-    
+    setQuadrants(generateQuadrants());
   },[]);
 
   return (
     <group>
       {quadrants.map(quadrant => <Quadrant {...quadrant}></Quadrant>)}
+      {console.log("quadrants were rendered at", new Date().toLocaleTimeString())}
     </group>
   );
-});
+};
 
 
 Quadrants.propTypes = {
@@ -53,4 +52,4 @@ Quadrants.defaultProps = {
 
 };
 
-export default Quadrants;
+export default memo(Quadrants);

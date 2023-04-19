@@ -11,11 +11,12 @@ import Pavement from "./Pavement";
 
 import { Vector3 } from "three";
 import { GridContext } from "../Contexts/GridContext";
+import { PREVIEW_STATES } from "../lib/consts/states";
 
 const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedOnRow, sectorId, sectorColor, quadrant, label}) => {
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
-  const { handleBuildingClick } = useContext(GridContext);
+  const { setCameraPosition, setCameraClickedPosition, setPreviewState} = useContext(GridContext);
   //Note points need to be pulled with quadrantDistanceToMove aswell 
   const pointA = getPointOnACircle(positionX * cellWidthInDegreesBasedOnRow, radius, 0.1 );
   const pointB = getPointOnACircle(positionX * cellWidthInDegreesBasedOnRow + cellWidthInDegreesBasedOnRow, radius , 0.1 );
@@ -24,7 +25,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
   const points = [pointA, pointB, pointC, pointD, pointA];
 
   const childPosition = getPointOnACircle(cellWidthInDegreesBasedOnRow + positionX * cellWidthInDegreesBasedOnRow - cellWidthInDegreesBasedOnRow / 2, radius + 2, 0.115);
-  
+  const childCameraPosition = getPointOnACircle(cellWidthInDegreesBasedOnRow + positionX * cellWidthInDegreesBasedOnRow - cellWidthInDegreesBasedOnRow / 2, radius - 1, 2);
   const childRotation = [0, cellWidthInDegreesBasedOnRow + positionX * cellWidthInDegreesBasedOnRow - cellWidthInDegreesBasedOnRow / 2 - toRadians(90), 0];
 
   const quadrantRowZeroMiddlePosition = getPointOnACircle(toRadians(- 45 * quadrant - 22.5), radius, 0.1);
@@ -34,6 +35,12 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
   const { debugCellBoundingBox } = useControls("Scene Generation", {
     debugCellBoundingBox: { value: false },
   });
+
+  const handleBuildingClick = (cameraPosition, clickedPosition) => {
+    setCameraClickedPosition(clickedPosition);
+    setCameraPosition(cameraPosition);
+    setPreviewState(PREVIEW_STATES.BOOTH);
+  }
 
   return (
     <>
@@ -61,7 +68,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
     
 
       {/* <Box castShadow roughness={0.1} metalness={0.9} clickable color="#FFC619" position={childPosition} rotation={childRotation} /> */}
-      <ExpoBooth2 onClick={() => handleBuildingClick(childPositionPulledBack)} label={label} sectorId={sectorId} scale={14} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
+      <ExpoBooth2 onClick={() => handleBuildingClick(childCameraPosition, childPositionPulledBack)} label={label} sectorId={sectorId} scale={14} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
       {/* <Pavement  position={[0, 0.1, 0]} rotation={[toRadians(90), toRadians(0),toRadians(0)]}/> */}
     </>
   )
