@@ -18,6 +18,7 @@ import Quadrants from "./components/Quadrants";
 import GridScene from "./components/GridScene";
 import { GridContext } from "./Contexts/GridContext";
 import { PREVIEW_STATES } from "./lib/consts/states";
+import { Theatre } from "./components/models/Theatre";
 
 extend({ SAOPass });
 
@@ -96,11 +97,12 @@ const MainScene = memo(function MainScene(){
         <GridScene />
         {/* <Grid handleBuildingClick={handleBuildingClick} /> */}
         {saoEnabled && <PostProcessing cameraRef={shadowCameraRef}/>} 
-        <Dome position={[0,0.07,0]} scale={7}></Dome>
+        <Dome position={[15,0.07,15]} scale={7}></Dome>
+        <Theatre position={[0, 0.01, 0]} scale={12} rotation={[0, toRadians(45), 0]} />
         <Garden />
       </Suspense>
-      <Windmil  position={[36, -0.1, 36]}  scale={2} rotation={[0, toRadians(225), 0]}/>
-      <Windmil  position={[20, -0.1, 50]}  scale={2} rotation={[0, toRadians(225), 0]}/>
+      <Windmil  position={[-66, -0.1, -66]}  scale={2} rotation={[0, toRadians(225 + 180), 0]}/>
+      <Windmil  position={[-180, -0.1, -50]}  scale={2} rotation={[0, toRadians(225), 0]}/>
       <Windmil  position={[50, -0.1, 20]}  scale={2} rotation={[0, toRadians(225), 0]}/>
       <hemisphereLight color={hemisphereColor}  groundColor={hemisphereGroundColor} position={[-7, 25, 13]} intensity={0.5} />
       <ambientLight color={ambientColor} intensity={ambientIntensity}/>

@@ -20,7 +20,7 @@ export function WaterRegion(props) {
           <DefaultMaterial />
         </mesh>
         <mesh
-          castShadow
+          // castShadow
           receiveShadow
           geometry={nodes.geo1_1.geometry}
           material={materials.water}

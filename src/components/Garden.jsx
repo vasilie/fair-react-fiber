@@ -17,7 +17,7 @@ const Garden = () => {
   return (
     <group position={gardenDistanceToMove}>
       <WaterRegion position={[0, 0.01, 0]} scale={20} rotation={[0, toRadians(90), 0]}/>
-      <Theatre position={[14.3, 0.01, 14.4]} scale={8} rotation={[0, toRadians(45), 0]} />
+      
       <Tree2 position={[5.3, 0.01, 12.4]} scale={17}/>
       <Tree3 position={[6.3, 0.01, 10.4]} scale={17}/>
       <Tree3 position={[5.3, 0.01, 18.4]} scale={17}/>
