@@ -1,6 +1,6 @@
 import { Suspense, useRef, useState, useEffect, useContext, memo } from "react";
 import { Canvas, extend, useThree, useFrame } from '@react-three/fiber'
-import { OrbitControls, Environment, Sky, Text, Box, PerspectiveCamera, Html } from '@react-three/drei'
+import { OrbitControls, Environment, Sky, Text, Box, PerspectiveCamera, Html, BakeShadows } from '@react-three/drei'
 import { useSpring, animated } from "@react-spring/three";
 import './index.css';
 import { Dome } from "./components/models/Dome";
@@ -69,10 +69,8 @@ const MainScene = memo(function MainScene(){
 
   return (
     <Canvas shadows camera={{ position: [0, 13, -25], fov: 80, }} >
-      
+      <group rotation={[0, toRadians(0), 0]}>
         <Quadrants />
-        <Landscape position={[0, -0.04, 0]} scale={3.8}/>
-        {/* Roads */}
         <mesh
           receiveShadow    
           rotation={[-Math.PI / 2, 0, 0]}
@@ -97,13 +95,17 @@ const MainScene = memo(function MainScene(){
         <GridScene />
         {/* <Grid handleBuildingClick={handleBuildingClick} /> */}
         {saoEnabled && <PostProcessing cameraRef={shadowCameraRef}/>} 
-        <Dome position={[15,0.07,15]} scale={7}></Dome>
-        <Theatre position={[0, 0.01, 0]} scale={12} rotation={[0, toRadians(45), 0]} />
+        <Dome position={[22,0.07,22]} scale={14}></Dome>
+        <Text position={[-2.59,-0.08, -0.33]} rotation={[0,toRadians(45),0]} color="#c0c0c0" scale={0.021}>Psst kid, wanna buy some frames?</Text>
+        <Theatre position={[0, -0.1, 0]} scale={10} rotation={[0, toRadians(45), 0]} />
         <Garden />
+        <BakeShadows />
       </Suspense>
-      <Windmil  position={[-66, -0.1, -66]}  scale={2} rotation={[0, toRadians(225 + 180), 0]}/>
-      <Windmil  position={[-180, -0.1, -50]}  scale={2} rotation={[0, toRadians(225), 0]}/>
-      <Windmil  position={[50, -0.1, 20]}  scale={2} rotation={[0, toRadians(225), 0]}/>
+      </group>
+      <Landscape position={[0, -0.04, 0]} scale={3.8}/>
+      <Windmil  position={[-26, 5.1, -176]}  scale={4} rotation={[0, toRadians(225 + 180), 0]}/>
+      <Windmil  position={[-180, 5.1, -50]}  scale={4} rotation={[0, toRadians(225 + 180), 0]}/>
+      <Windmil  position={[-90, 5.1, -150]}  scale={4} rotation={[0, toRadians(225 + 180), 0]}/>
       <hemisphereLight color={hemisphereColor}  groundColor={hemisphereGroundColor} position={[-7, 25, 13]} intensity={0.5} />
       <ambientLight color={ambientColor} intensity={ambientIntensity}/>
       <directionalLight 
@@ -113,8 +115,8 @@ const MainScene = memo(function MainScene(){
         castShadow
         intensity={dirIntensity}
         color={dirColor}
-        shadow-mapSize-width={4096}
-        shadow-mapSize-height={4096}
+        shadow-mapSize-width={16384}
+        shadow-mapSize-height={16384}
         shadow-bias={-0.00001}
       >
       <orthographicCamera ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
@@ -167,14 +169,14 @@ function Controls() {
       rotateSpeed={0.5}
       args={[camera, gl.domElement]}
       autoRotate={true}
-      maxDistance={50}
+      maxDistance={70}
       autoRotateSpeed={0}
       target={springs.target.to((x, y, z) => [x, y, z])}
       makeDefault
       enableRotate={isDomePreview}
       enablePan={isDomePreview}
       polarAngle={3 * Math.PI /13 }
-      minPolarAngle={Math.PI  / 12}
+      minPolarAngle={isDomePreview ? Math.PI  / 12 : Math.PI  / 24}
       maxPolarAngle={isDomePreview ? Math.PI / 2.01 : Math.PI }  />
       
     </>
