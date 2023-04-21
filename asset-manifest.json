@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/fair-react-fiber/static/css/main.90e8607a.css",
-    "main.js": "/fair-react-fiber/static/js/main.617a75f4.js",
+    "main.js": "/fair-react-fiber/static/js/main.a625aaf9.js",
     "static/js/787.3e696e41.chunk.js": "/fair-react-fiber/static/js/787.3e696e41.chunk.js",
     "static/media/dome.glb": "/fair-react-fiber/static/media/dome.16bc7629dd178a2635d6.glb",
     "static/media/windmil.glb": "/fair-react-fiber/static/media/windmil.2dfb63ce1e87fd916df0.glb",
@@ -14,17 +14,19 @@
     "static/media/tree01.glb": "/fair-react-fiber/static/media/tree01.690536a49b2caf0a6abb.glb",
     "static/media/tree02.glb": "/fair-react-fiber/static/media/tree02.fdf1d98dcf4598f50f03.glb",
     "static/media/waterRegion.glb": "/fair-react-fiber/static/media/waterRegion.746d4ffe9fd9e399da49.glb",
+    "static/media/tigar.jpg": "/fair-react-fiber/static/media/tigar.b06d948fe05f33921dc2.jpg",
     "static/media/srbijasume.png": "/fair-react-fiber/static/media/srbijasume.48cb128aa9f4ac52fd22.png",
     "static/media/expoBooth.glb": "/fair-react-fiber/static/media/expoBooth.afb69075bc7573336fc3.glb",
+    "static/media/agip-logo.jpg": "/fair-react-fiber/static/media/agip-logo.f3b5f64f620cad1facb6.jpg",
     "static/media/maxi.jpg": "/fair-react-fiber/static/media/maxi.b8ac23439e82065d898f.jpg",
     "static/media/streetLight.glb": "/fair-react-fiber/static/media/streetLight.e45215882d78ea2d9e87.glb",
     "index.html": "/fair-react-fiber/index.html",
     "main.90e8607a.css.map": "/fair-react-fiber/static/css/main.90e8607a.css.map",
-    "main.617a75f4.js.map": "/fair-react-fiber/static/js/main.617a75f4.js.map",
+    "main.a625aaf9.js.map": "/fair-react-fiber/static/js/main.a625aaf9.js.map",
     "787.3e696e41.chunk.js.map": "/fair-react-fiber/static/js/787.3e696e41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.90e8607a.css",
-    "static/js/main.617a75f4.js"
+    "static/js/main.a625aaf9.js"
   ]
 }
