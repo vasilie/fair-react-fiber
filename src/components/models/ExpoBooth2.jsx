@@ -9,23 +9,13 @@ import * as THREE from "three";
 import { GridContext } from "../../Contexts/GridContext";
 import { toRadians } from "../../lib/helpers/math";
 import { changeCursorOnHover } from "../../lib/helpers/cursor";
-import img1 from "../../images/maxi.jpg";
-import img2 from "../../images/matijevic.png";
-import img3 from "../../images/srbijasume.png";
 
-const images = [
-  img1,
-  img2,
-  img3,
-];
-
-const randomImage = images[Math.floor(Math.random() * images.length )];
 
 
 export function ExpoBooth2(props) {
   const ref = useRef();
   const [hovered, hover] = useState(false);
-  const texture = useLoader(THREE.TextureLoader, randomImage)
+  const texture = useLoader(THREE.TextureLoader, props.image)
   const { width, height } = useAspect('cover', texture.image.width, texture.image.height, 2);
 
   useFrame(()=> {
@@ -36,14 +26,14 @@ export function ExpoBooth2(props) {
 
   return (
     <group {...props} dispose={null}>
-      {hovered && <Html>
+      {/* {hovered && <Html>
         <div className={`content ${hovered && "active"}`} >
           <div className="name">{props.label}</div>
           <div className="sector">{props.sectorId}</div>
         </div>
-      </Html>}
-      <group position={[0.016,0.0377, -0.031]} >
-        <mesh position={[0,0,0]} scale={[0.04,  0.014, 0.014]} rotation={[toRadians(180), toRadians(0), toRadians(180)]}>
+      </Html>} */}
+      <group position={[2.76, 4.3377, -4.031]} rotation={[toRadians(180), toRadians(0), toRadians(180)]}>
+        <mesh scale={[3,  1, 1]} >
           <planeBufferGeometry attach="geometry" args={[width, height]}  />
           <meshBasicMaterial attach="material" map={texture} />
         </mesh>

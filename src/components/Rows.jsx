@@ -76,12 +76,11 @@ const Rows = () => {
                 oposition={positionPulledBack}
                 rotation={childRotation}
               >
-                
               </Glass>)
             })
           })
         }
-       <meshStandardMaterial transparent={true} opacity={0.2} color="orange" />
+       <meshStandardMaterial transparent={true} opacity={0.15} color="cyan" />
       </Instances>
   </>
 

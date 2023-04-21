@@ -7,8 +7,24 @@ import { ExpoBooth2 } from "./models/ExpoBooth2";
 
 import { GridContext } from "../Contexts/GridContext";
 import { PREVIEW_STATES } from "../lib/consts/states";
+import img1 from "../images/maxi.jpg";
+import img2 from "../images/matijevic.png";
+import img3 from "../images/srbijasume.png";
+import img4 from "../images/tigar.jpg";
+import img5 from "../images/agip-logo.jpg";
+
+const images = [
+  img1,
+  img2,
+  img3,
+  img4,
+  img5,
+];
+
+
 
 const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedOnRow, sectorId, sectorColor, quadrant, label}) => {
+  const randomImage = images[Math.floor(Math.random() * images.length )];
   const { setCameraPosition, setCameraClickedPosition, setPreviewState} = useContext(GridContext);
   
   //Note points need to be pulled with quadrantDistanceToMove aswell 
@@ -41,7 +57,7 @@ const Cell = ({positionX, radius, gridSizeX, gridSizeY, cellWidthInDegreesBasedO
       {debugCellBoundingBox && <Line color="red" points={points}></Line>}
       <group position={[0 + quadrantDistanceToMove[0] , 0.03, 0 + quadrantDistanceToMove[2]]}>
       </group>
-      <ExpoBooth2 onClick={() => handleBuildingClick(childCameraPosition, childPositionPulledBack)} label={label} sectorId={sectorId} scale={0.1} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
+      <ExpoBooth2 image={randomImage} onClick={() => handleBuildingClick(childCameraPosition, childPositionPulledBack)} label={label} sectorId={sectorId} scale={0.1} position={childPositionPulledBack} color={"white"} rotation={childRotation}></ExpoBooth2>
     </>
   )
 }
