@@ -75,7 +75,7 @@ const Pavement = memo(function Pavement(props) {
         castShadow
         receiveShadow
       >
-        <extrudeBufferGeometry attach="geometry" args={[shape, extrudeSettings]} />
+        <extrudeGeometry attach="geometry" args={[shape, extrudeSettings]} />
         <DefaultMaterial />
       </mesh>
       {debugGrid && points.map(point => <Line color="green" points={[point, [ point[0], point[1] + 10, point[2]]]}/>)}

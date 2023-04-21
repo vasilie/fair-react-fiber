@@ -59,4 +59,4 @@ Grid.propTypes = {
 
 export default Grid;
 
-useGLTF.preload("./models/blender/ExpoBooth.glb");
+useGLTF.preload("./models/blender/ExpoBooth4.glb");

@@ -63,7 +63,6 @@ const Rows = () => {
         {booths.map(boothrow => {
           return boothrow.map(booth => {
             const {cellWidthInDegreesBasedOnRow, positionX, radius: neradius, quadrant} = booth.props;
-            console.log("positionx", neradius);
           const quadrantRowZeroMiddlePosition = getPointOnACircle(toRadians(- 45 * quadrant - 22.5), neradius, 0.1);
           const quadrantMovePosition = getPointOnACircle(toRadians(- 45 * quadrant - 22.5), neradius + 1.3, 0.1);
           const quadrantDistanceToMove = [quadrantMovePosition[0] - quadrantRowZeroMiddlePosition[0], 0, quadrantMovePosition[2] - quadrantRowZeroMiddlePosition[2]];

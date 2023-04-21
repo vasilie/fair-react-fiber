@@ -34,7 +34,7 @@ export function ExpoBooth2(props) {
       </Html>} */}
       <group position={[2.76, 4.3377, -4.031]} rotation={[toRadians(180), toRadians(0), toRadians(180)]}>
         <mesh scale={[3,  1, 1]} >
-          <planeBufferGeometry attach="geometry" args={[width, height]}  />
+          <planeGeometry attach="geometry" args={[width, height]}  />
           <meshBasicMaterial attach="material" map={texture} />
         </mesh>
       </group>
