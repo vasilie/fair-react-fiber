@@ -115,8 +115,8 @@ const MainScene = memo(function MainScene(){
         castShadow
         intensity={dirIntensity}
         color={dirColor}
-        shadow-mapSize-width={8192}
-        shadow-mapSize-height={8192}
+        shadow-mapSize-width={4096}
+        shadow-mapSize-height={4096}
         shadow-bias={-0.00001}
       >
       <orthographicCamera fov={80} ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
