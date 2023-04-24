@@ -1,11 +1,10 @@
 {
   "files": {
     "main.css": "/fair-react-fiber/static/css/main.90e8607a.css",
-    "main.js": "/fair-react-fiber/static/js/main.5e66d71a.js",
+    "main.js": "/fair-react-fiber/static/js/main.dabf53cf.js",
     "static/js/787.3e696e41.chunk.js": "/fair-react-fiber/static/js/787.3e696e41.chunk.js",
     "static/media/dome.glb": "/fair-react-fiber/static/media/dome.16bc7629dd178a2635d6.glb",
     "static/media/windmil.glb": "/fair-react-fiber/static/media/windmil.2dfb63ce1e87fd916df0.glb",
-    "static/media/expoBooth5.glb": "/fair-react-fiber/static/media/expoBooth5.1b316478cdbdded379df.glb",
     "static/media/tree04.glb": "/fair-react-fiber/static/media/tree04.fdd2636897bc59d88284.glb",
     "static/media/tree03.glb": "/fair-react-fiber/static/media/tree03.3754560d0c90d59e1eb6.glb",
     "static/media/landscape.glb": "/fair-react-fiber/static/media/landscape.3f67fd9a44f8a0462df2.glb",
@@ -22,11 +21,11 @@
     "static/media/streetLight.glb": "/fair-react-fiber/static/media/streetLight.e45215882d78ea2d9e87.glb",
     "index.html": "/fair-react-fiber/index.html",
     "main.90e8607a.css.map": "/fair-react-fiber/static/css/main.90e8607a.css.map",
-    "main.5e66d71a.js.map": "/fair-react-fiber/static/js/main.5e66d71a.js.map",
+    "main.dabf53cf.js.map": "/fair-react-fiber/static/js/main.dabf53cf.js.map",
     "787.3e696e41.chunk.js.map": "/fair-react-fiber/static/js/787.3e696e41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.90e8607a.css",
-    "static/js/main.5e66d71a.js"
+    "static/js/main.dabf53cf.js"
   ]
 }
