@@ -13,7 +13,7 @@ export function WaterRegion(props) {
       <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
         <mesh
           castShadow
-          receiveShadow
+          // receiveShadow
           geometry={nodes.WaterRegion_1.geometry}
           material={materials.water}
         >
