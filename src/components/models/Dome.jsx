@@ -29,7 +29,7 @@ export function Dome(props) {
         <DefaultMaterial />
         </mesh>
       </group>
-      <mesh
+      {/* <mesh
         castShadow
         receiveShadow
         geometry={nodes.Cylinder.geometry}
@@ -37,7 +37,7 @@ export function Dome(props) {
         scale={[0.7, 7, 0.7]}
       >
         <DefaultMaterial />
-      </mesh>
+      </mesh> */}
     </group>
   );
 }

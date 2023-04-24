@@ -26,15 +26,15 @@ export function ExpoBooth2(props) {
 
   return (
     <group {...props} dispose={null}>
-      {/* {hovered && <Html>
+      {hovered && <Html>
         <div className={`content ${hovered && "active"}`} >
           <div className="name">{props.label}</div>
           <div className="sector">{props.sectorId}</div>
         </div>
-      </Html>} */}
-      <group position={[2.76, 4.3377, -4.031]} rotation={[toRadians(180), toRadians(0), toRadians(180)]}>
+      </Html>}
+      <group position={[2.26, 4.3377, -4.031]} rotation={[toRadians(180), toRadians(0), toRadians(180)]}>
         <mesh scale={[3,  1, 1]} >
-          <planeGeometry attach="geometry" args={[width, height]}  />
+          <planeGeometry receiveShadow attach="geometry" args={[width, height]}  />
           <meshBasicMaterial attach="material" map={texture} />
         </mesh>
       </group>

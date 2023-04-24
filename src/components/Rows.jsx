@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useContext } from "react";
 import { Line, useGLTF, Instances } from "@react-three/drei";
-import modelPath from "./models/blender/expoBooth4.glb";
+import modelPath from "./models/blender/expoBooth5.glb";
 import { GridContext } from "../Contexts/GridContext";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
 import { generateCurvedLinePoints } from "../lib/helpers/sceneGeneration";
@@ -55,17 +55,17 @@ const Rows = () => {
   console.log(booths);
  
   return (<>
-      <Instances castShadow receiveShadow range={1000} geometry={nodes.geo1.geometry}>
+      <Instances castShadow receiveShadow range={1000} geometry={nodes.ExpoBooth_1.geometry}>
         {booths}
         <DefaultMaterial />
       </Instances>
-      <Instances castShadow receiveShadow range={1000} geometry={nodes.geo1_1.geometry}>
+      <Instances castShadow receiveShadow range={1000} geometry={nodes.ExpoBooth_2.geometry}>
         {booths.map(boothrow => {
           return boothrow.map(booth => {
             const {cellWidthInDegreesBasedOnRow, positionX, radius: neradius, quadrant} = booth.props;
-          const quadrantRowZeroMiddlePosition = getPointOnACircle(toRadians(- 45 * quadrant - 22.5), neradius, 0.1);
-          const quadrantMovePosition = getPointOnACircle(toRadians(- 45 * quadrant - 22.5), neradius + 1.3, 0.1);
-          const quadrantDistanceToMove = [quadrantMovePosition[0] - quadrantRowZeroMiddlePosition[0], 0, quadrantMovePosition[2] - quadrantRowZeroMiddlePosition[2]];
+            const quadrantRowZeroMiddlePosition = getPointOnACircle(toRadians(- 45 * quadrant - 22.5), neradius, 0.1);
+            const quadrantMovePosition = getPointOnACircle(toRadians(- 45 * quadrant - 22.5), neradius + 1.3, 0.1);
+            const quadrantDistanceToMove = [quadrantMovePosition[0] - quadrantRowZeroMiddlePosition[0], 0, quadrantMovePosition[2] - quadrantRowZeroMiddlePosition[2]];
             const position = getPointOnACircle(cellWidthInDegreesBasedOnRow + positionX * cellWidthInDegreesBasedOnRow - cellWidthInDegreesBasedOnRow / 2, neradius + 2, 0.115);
             const positionPulledBack =  [position[0] + quadrantDistanceToMove[0], position[1], position[2] + quadrantDistanceToMove[2]]
             const childRotation = [0, cellWidthInDegreesBasedOnRow + positionX * cellWidthInDegreesBasedOnRow - cellWidthInDegreesBasedOnRow / 2 , 0];

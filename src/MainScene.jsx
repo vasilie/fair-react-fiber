@@ -119,7 +119,7 @@ const MainScene = memo(function MainScene(){
         shadow-mapSize-height={8192}
         shadow-bias={-0.00001}
       >
-      <orthographicCamera ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
+      <orthographicCamera fov={80} ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
       </directionalLight>
       <Environment background preset={environmentPreset} blur={1}  />
       <Controls />
@@ -163,23 +163,23 @@ function Controls() {
     
     {/* <AnimatedBox material-color="red" position={springs.target.to((x, y, z) => [x, y, z])} /> */}
     <AnimatedCamera ref={animatedCameraRef} fov={80} makeDefault position={springs.position} />
-      <AnimatedOrbitControls
-      enableDamping
-      dampingFactor={0.1}
-      rotateSpeed={0.5}
-      args={[camera, gl.domElement]}
-      autoRotate={true}
-      maxDistance={70}
-      autoRotateSpeed={0}
-      target={springs.target.to((x, y, z) => [x, y, z])}
-      makeDefault
-      enableRotate={isDomePreview}
-      enablePan={isDomePreview}
-      polarAngle={3 * Math.PI /13 }
-      minPolarAngle={isDomePreview ? Math.PI  / 12 : Math.PI  / 24}
-      maxPolarAngle={isDomePreview ? Math.PI / 2.01 : Math.PI }  />
-      
-    </>
+    <AnimatedOrbitControls
+    enableDamping
+    dampingFactor={0.1}
+    rotateSpeed={0.5}
+    args={[camera, gl.domElement]}
+    autoRotate={true}
+    maxDistance={70}
+    autoRotateSpeed={0}
+    target={springs.target.to((x, y, z) => [x, y, z])}
+    makeDefault
+    enableRotate={isDomePreview}
+    enablePan={isDomePreview}
+    polarAngle={3 * Math.PI /13 }
+    minPolarAngle={isDomePreview ? Math.PI  / 12 : Math.PI  / 24}
+    maxPolarAngle={isDomePreview ? Math.PI / 2.01 : Math.PI }  />
+    
+  </>
     
   )
 }
