@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/fair-react-fiber/static/css/main.90e8607a.css",
-    "main.js": "/fair-react-fiber/static/js/main.dabf53cf.js",
+    "main.js": "/fair-react-fiber/static/js/main.13cb1917.js",
     "static/js/787.3e696e41.chunk.js": "/fair-react-fiber/static/js/787.3e696e41.chunk.js",
     "static/media/dome.glb": "/fair-react-fiber/static/media/dome.16bc7629dd178a2635d6.glb",
     "static/media/windmil.glb": "/fair-react-fiber/static/media/windmil.2dfb63ce1e87fd916df0.glb",
@@ -9,6 +9,7 @@
     "static/media/tree03.glb": "/fair-react-fiber/static/media/tree03.3754560d0c90d59e1eb6.glb",
     "static/media/landscape.glb": "/fair-react-fiber/static/media/landscape.3f67fd9a44f8a0462df2.glb",
     "static/media/matijevic.png": "/fair-react-fiber/static/media/matijevic.e292c6a26dd569912944.png",
+    "static/media/ExpoBoothOptimized.glb": "/fair-react-fiber/static/media/ExpoBoothOptimized.ec38283358e6fae9d61e.glb",
     "static/media/theatre.glb": "/fair-react-fiber/static/media/theatre.e0f9bac137fa47d5f07d.glb",
     "static/media/tree01.glb": "/fair-react-fiber/static/media/tree01.690536a49b2caf0a6abb.glb",
     "static/media/tree02.glb": "/fair-react-fiber/static/media/tree02.fdf1d98dcf4598f50f03.glb",
@@ -21,11 +22,11 @@
     "static/media/streetLight.glb": "/fair-react-fiber/static/media/streetLight.e45215882d78ea2d9e87.glb",
     "index.html": "/fair-react-fiber/index.html",
     "main.90e8607a.css.map": "/fair-react-fiber/static/css/main.90e8607a.css.map",
-    "main.dabf53cf.js.map": "/fair-react-fiber/static/js/main.dabf53cf.js.map",
+    "main.13cb1917.js.map": "/fair-react-fiber/static/js/main.13cb1917.js.map",
     "787.3e696e41.chunk.js.map": "/fair-react-fiber/static/js/787.3e696e41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.90e8607a.css",
-    "static/js/main.dabf53cf.js"
+    "static/js/main.13cb1917.js"
   ]
 }
