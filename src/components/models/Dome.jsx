@@ -29,7 +29,7 @@ export function Dome(props) {
         >
           <meshStandardMaterial
             {...materials["GLass.001"]}
-            opacity={0.3} // set the opacity to control the level of transparency
+            opacity={0.15} // set the opacity to control the level of transparency
             transparent // set the transparent property to true
           />
         </mesh>

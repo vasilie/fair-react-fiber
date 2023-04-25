@@ -95,7 +95,7 @@ const MainScene = memo(function MainScene(){
         </mesh>
         <Suspense fallback={null}> 
         <directionalLight 
-          position={[10, 60, 50]}
+          position={[10, 90, 60]}
           angle={0.3}
           penumbra={1}
           castShadow
@@ -103,7 +103,7 @@ const MainScene = memo(function MainScene(){
           color={dirColor}
           shadow-mapSize-width={4096}
           shadow-mapSize-height={4096}
-          shadow-bias={-0.00001}
+          shadow-bias={-0.0002}
         >
           <orthographicCamera fov={80} ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
         </directionalLight>
@@ -115,7 +115,7 @@ const MainScene = memo(function MainScene(){
         <Theatre position={[0, -0.1, 0]} scale={10} rotation={[0, toRadians(45), 0]} />
         <Garden />
         <Quadrants />
-        <BakeShadows />
+        {/* <BakeShadows /> */}
       </Suspense>
       </group>
       <Landscape position={[0, -0.04, 0]} scale={3.8}/>
