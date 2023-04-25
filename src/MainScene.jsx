@@ -150,7 +150,7 @@ function Controls() {
         mass: 1, 
         tension: 100, 
         friction: 20,
-        precision: 0.001,
+        precision: 0.0001,
       },
       reset: true,
     }),
