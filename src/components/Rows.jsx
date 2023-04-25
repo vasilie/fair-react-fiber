@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo, useContext } from "react";
 import { Line, useGLTF, Instances } from "@react-three/drei";
-import modelPath from "./models/blender/expoBooth5.glb";
+import modelPath from "./models/blender/ExpoBoothOptimized.glb";
 import { GridContext } from "../Contexts/GridContext";
 import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians  } from "../lib/helpers/math";
 import { generateCurvedLinePoints } from "../lib/helpers/sceneGeneration";

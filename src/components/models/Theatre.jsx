@@ -17,7 +17,11 @@ export function Theatre(props) {
         geometry={nodes.geo1.geometry}
         material={materials.Glass}
       >
-        <DefaultMaterial />
+        <meshStandardMaterial
+          color={"cyan"}
+          opacity={0.15} // set the opacity to control the level of transparency
+          transparent // set the transparent property to true
+        />
       </mesh>
       <mesh
         castShadow

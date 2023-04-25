@@ -1,17 +1,8 @@
-import PropTypes from "prop-types";
 import * as THREE from 'three';
-import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians } from '../lib/helpers/math';
-import { Instance, Line } from "@react-three/drei";
-import { useContext, memo } from "react";
-import { Lamp } from "./models/Lamp";
-import { GridContext } from "../Contexts/GridContext";
-import DefaultMaterial from "./materials/DefaultMaterial";
+import { getAngleFromLengthAndRadius, getPointOnACircle, toRadians } from './math';
 
-const Pavement = memo(function Pavement(props) {
-  const {startingAngle, segmentThetaAngle, radius} = props;
-  
-  const { gridSizeY, debugGrid } = useContext(GridContext);
 
+export const pavementMeshGenerator = ({startingAngle = 0, segmentThetaAngle = 45 , radius = 8.1, gridSizeY}) => {
   const extrudeSettings = {
     steps: 4,
     depth: 0.10,
@@ -66,41 +57,9 @@ const Pavement = memo(function Pavement(props) {
   shape.absarc(0, 0, innerRadius, toRadians(offsetAngle + 45 - startingAngle - innerBevelOffsetAnle), toRadians(offsetAngle - startingAngle + innerBevelOffsetAnle), true)
   shape.absarc(pointBBevel[0], pointBBevel[2], bevelOffset ,toRadians(45 - startingAngle), toRadians(135 - startingAngle), false);
   shape.absarc(pointCBevel[0], pointCBevel[2], bevelOffset ,toRadians(135 - startingAngle), toRadians(225 - startingAngle), false);
-
   
+  const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
 
-  return (
-    <>
-      <mesh
-        {...props}
-        rotation={[toRadians(270), toRadians(0), toRadians(0)]}
-        castShadow
-        receiveShadow
-      >
-        <extrudeGeometry attach="geometry" args={[shape, extrudeSettings]} />
-        <DefaultMaterial />
-      </mesh>
-      {debugGrid && points.map(point => <Line color="green" points={[point, [ point[0], point[1] + 10, point[2]]]}/>)}
-      <Lamp position={lampAPoint} scale={16} rotation={lampARotation}/>
-      <Lamp position={lampBPoint} scale={16} rotation={lampBRotation}/>
-      <Lamp position={lampCPoint} scale={16} rotation={lampCRotation}/>
-      <Lamp position={lampDPoint} scale={16} rotation={lampDRotation}/>
-    </>
-  );
-});
-
-Pavement.defaultProps = {
-  startingAngle: 0,
-  radius: 12,
-  gridSizeY: 5,
-  segmentThetaAngle: 45,
+  return geometry;
 }
 
-Pavement.propTypes = {
-  startingAngle: PropTypes.number,
-  radius: PropTypes.number,
-  gridSizeY: PropTypes.number,
-  segmentThetaAngle: PropTypes.number,
-}
-
-export default Pavement;

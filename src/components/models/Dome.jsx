@@ -25,8 +25,13 @@ export function Dome(props) {
           receiveShadow
           geometry={nodes.geo1001_1.geometry}
           material={materials["GLass.001"]}
+          transparent={true}
         >
-        <DefaultMaterial />
+          <meshStandardMaterial
+            {...materials["GLass.001"]}
+            opacity={0.3} // set the opacity to control the level of transparency
+            transparent // set the transparent property to true
+          />
         </mesh>
       </group>
       {/* <mesh

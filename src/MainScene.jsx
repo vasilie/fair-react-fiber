@@ -69,8 +69,9 @@ const MainScene = memo(function MainScene(){
 
   return (
     <Canvas shadows camera={{ position: [0, 13, -25], fov: 80, }} >
-      <group rotation={[0, toRadians(0), 0]}>
-        <Quadrants />
+        <group rotation={[0, toRadians(0), 0]}>
+        
+        
         <mesh
           receiveShadow    
           rotation={[-Math.PI / 2, 0, 0]}
@@ -92,6 +93,19 @@ const MainScene = memo(function MainScene(){
           <meshStandardMaterial roughness={0.8} metalness={1} color={"#f4f3f4"}></meshStandardMaterial>
         </mesh>
         <Suspense fallback={null}> 
+        <directionalLight 
+          position={[10, 60, 50]}
+          angle={0.3}
+          penumbra={1}
+          castShadow
+          intensity={dirIntensity}
+          color={dirColor}
+          shadow-mapSize-width={4096}
+          shadow-mapSize-height={4096}
+          shadow-bias={-0.00001}
+        >
+          <orthographicCamera fov={80} ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
+        </directionalLight>
         <GridScene />
         {/* <Grid handleBuildingClick={handleBuildingClick} /> */}
         {saoEnabled && <PostProcessing cameraRef={shadowCameraRef}/>} 
@@ -99,6 +113,7 @@ const MainScene = memo(function MainScene(){
         <Text position={[-2.59,-0.08, -0.33]} rotation={[0,toRadians(45),0]} color="#c0c0c0" scale={0.021}>Psst kid, wanna buy some frames?</Text>
         <Theatre position={[0, -0.1, 0]} scale={10} rotation={[0, toRadians(45), 0]} />
         <Garden />
+        <Quadrants />
         <BakeShadows />
       </Suspense>
       </group>
@@ -108,19 +123,7 @@ const MainScene = memo(function MainScene(){
       <Windmil  position={[-90, 5.1, -150]}  scale={4} rotation={[0, toRadians(225 + 180), 0]}/>
       <hemisphereLight color={hemisphereColor}  groundColor={hemisphereGroundColor} position={[-7, 25, 13]} intensity={0.5} />
       <ambientLight color={ambientColor} intensity={ambientIntensity}/>
-      <directionalLight 
-        position={[10, 60, 50]}
-        angle={0.3}
-        penumbra={1}
-        castShadow
-        intensity={dirIntensity}
-        color={dirColor}
-        shadow-mapSize-width={4096}
-        shadow-mapSize-height={4096}
-        shadow-bias={-0.00001}
-      >
-      <orthographicCamera fov={80} ref={shadowCameraRef} shadowMap attach="shadow-camera" args={[-50, 50, 40, -50, 0.1, 130]} />
-      </directionalLight>
+   
       <Environment background preset={environmentPreset} blur={1}  />
       <Controls />
       <Sky scale={1000} sunPosition={[10, 10, 30]} turbidity={0.1} />
