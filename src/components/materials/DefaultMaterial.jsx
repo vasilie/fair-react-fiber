@@ -1,6 +1,8 @@
+import { useThree } from "@react-three/fiber";
 import { useControls, folder } from "leva";
-
+import * as THREE from 'three';
 const DefaultMaterial = () => {
+  const {three} = useThree();
   const { color, metalness, roughness } = useControls({
     "Material": folder({
       color: "#e8e8e8",

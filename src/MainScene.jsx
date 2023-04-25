@@ -31,13 +31,13 @@ const MainScene = memo(function MainScene(){
 
   const { ambientColor, ambientIntensity, saoEnabled, dirColor, dirIntensity, environmentPreset } = useControls({
     "SAO Pass": folder({
-      saoEnabled: true,
+      saoEnabled: false,
     }),
     "Lights": folder({
       dirColor: "#fffbb4",
       dirIntensity: {value: 0.8, min: 0, max: 2},
       ambientColor: "#29add6",
-      ambientIntensity: {value: 0.1, min: 0, max: 1},
+      ambientIntensity: {value: 0.01, min: 0, max: 1},
       environmentPreset: {
         value: 'sunset',
         options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
@@ -68,7 +68,8 @@ const MainScene = memo(function MainScene(){
 
 
   return (
-    <Canvas shadows camera={{ position: [0, 13, -25], fov: 80, }} >
+    <Canvas shadows gl={{ antialias: true, gammaFactor: 1 }}
+    linear camera={{ position: [0, 13, -25], fov: 80, }} >
         <group rotation={[0, toRadians(0), 0]}>
         
         
@@ -136,6 +137,8 @@ function Controls() {
   const animatedCameraRef = useRef();
   const { clickedPosition, cameraPosition, previewState, setPreviewState } = useContext(GridContext);
   const isDomePreview = previewState === PREVIEW_STATES.DOME;
+  gl.gammaFactor = 0.21;
+  gl.gammaOutput = true;
   console.log(camera.position.x);
   const [springs, api] = useSpring(
     () => ({
